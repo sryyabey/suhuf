@@ -36,13 +36,19 @@
 .usp-card-sub    { font-family: 'Cairo', sans-serif; font-size: 12px; color: var(--text-light); margin: 2px 0 0; }
 .usp-card-body   { padding: 20px 22px; display: flex; flex-direction: column; gap: 20px; }
 
+/* ── Tercih blokları ────────────────────────────────── */
+.usp-pref-grid   { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.usp-pref-card   { border: 1px solid var(--border-strong); border-radius: 11px; padding: 12px; background: #fff; display: flex; flex-direction: column; gap: 8px; }
+.usp-pref-head   { display:flex; align-items:center; gap:7px; font-family:'Cairo',sans-serif; font-size:12px; font-weight:700; color:var(--text-mid); }
+.usp-pref-head i { color: var(--teal-mid); font-size: 14px; }
+
 /* ── Dil seçimi ─────────────────────────────────────── */
 .usp-lang-row    { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
 .usp-field       { display: flex; flex-direction: column; gap: 6px; }
 .usp-label       { font-family: 'Cairo', sans-serif; font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: .6px; }
 .usp-select      { padding: 10px 34px 10px 12px; border: 1.5px solid var(--border-strong); border-radius: 9px; font-size: 14px; font-family: 'Cairo', sans-serif; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%238a7a60' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center; color: var(--text-dark); appearance: none; cursor: pointer; min-width: 180px; transition: border-color .12s, box-shadow .12s; }
 .usp-select:focus { outline: none; border-color: var(--teal-mid); box-shadow: 0 0 0 3px rgba(45,155,132,.12); }
-.usp-lang-hint   { font-size: 12px; color: var(--text-light); padding: 8px 12px; background: var(--gold-pale); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; gap: 6px; }
+.usp-lang-hint   { font-size: 12px; color: var(--text-light); padding: 8px 10px; background: var(--gold-pale); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; gap: 6px; }
 
 /* ── Meal sütunları ─────────────────────────────────── */
 .usp-meal-divider { display: flex; align-items: center; gap: 10px; }
@@ -79,7 +85,7 @@
 .usp-info-note i { color: var(--gold); font-size: 15px; flex-shrink: 0; margin-top: 1px; }
 
 /* ── Kaydet satırı ──────────────────────────────────── */
-.usp-save-row  { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.usp-save-row  { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 12px; border-top: 1px dashed var(--border); }
 .usp-save-btn  { display: inline-flex; align-items: center; gap: 7px; padding: 11px 22px; border-radius: 10px; border: none; background: var(--teal-dark); color: #fff; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s; }
 .usp-save-btn:hover { background: #145246; }
 .usp-save-btn:disabled { opacity: .5; cursor: not-allowed; }
@@ -91,6 +97,7 @@
 
 /* ── Responsive ─────────────────────────────────────── */
 @media (max-width: 600px) {
+    .usp-pref-grid { grid-template-columns: 1fr; }
     .usp-meal-cols { grid-template-columns: 1fr; }
     .usp-profile-top { flex-direction: column; align-items: flex-start; }
 }
@@ -153,14 +160,11 @@
 
     <div class="usp-card-body">
 
-        {{-- Dil Seçimi --}}
-        <div>
-            <div class="usp-meal-divider" style="margin-bottom:12px;">
-                <div class="usp-meal-divider-line"></div>
-                <span class="usp-meal-divider-text"><i class="ti ti-language" style="font-size:11px;"></i> {{ __('Translation Language') }}</span>
-                <div class="usp-meal-divider-line"></div>
-            </div>
-            <div class="usp-lang-row">
+        <div class="usp-pref-grid">
+            <div class="usp-pref-card">
+                <div class="usp-pref-head">
+                    <i class="ti ti-language"></i> {{ __('Translation Language') }}
+                </div>
                 <div class="usp-field">
                     <label class="usp-label">{{ __('Select Language') }}</label>
                     <select wire:model.live="selectedLanguage" class="usp-select">
@@ -174,16 +178,11 @@
                     {{ __('Language selection updates the meal list below.') }}
                 </div>
             </div>
-        </div>
 
-        {{-- Arabic Font --}}
-        <div>
-            <div class="usp-meal-divider" style="margin-bottom:12px;">
-                <div class="usp-meal-divider-line"></div>
-                <span class="usp-meal-divider-text"><i class="ti ti-typography" style="font-size:11px;"></i> {{ __('Arabic Font') }}</span>
-                <div class="usp-meal-divider-line"></div>
-            </div>
-            <div class="usp-lang-row">
+            <div class="usp-pref-card">
+                <div class="usp-pref-head">
+                    <i class="ti ti-typography"></i> {{ __('Arabic Font') }}
+                </div>
                 <div class="usp-field">
                     <label class="usp-label">{{ __('Select Arabic Font') }}</label>
                     <select wire:model.live="selectedArabicFont" class="usp-select">

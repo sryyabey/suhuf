@@ -27,6 +27,49 @@
 .qtp-select      { padding: 9px 12px; border: 1px solid var(--border-strong); border-radius: 9px; font-size: 14px; font-family: 'Cairo', sans-serif; background: #fff; color: var(--text-dark); cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7a60' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 30px; }
 .qtp-select:focus { outline: none; border-color: var(--teal-mid); box-shadow: 0 0 0 3px rgba(45,155,132,.12); }
 
+/* ── Arama'lı Sure Dropdown (quran-reading ile uyumlu) ───────────── */
+.qtp-ss-wrap     { position: relative; }
+.qtp-ss-trigger  {
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    border: 1px solid var(--border-strong); border-radius: 9px;
+    padding: 9px 12px; font-family: 'Cairo', sans-serif; font-size: 14px;
+    background: #fff; color: var(--text-dark); cursor: pointer; text-align: left;
+    transition: border-color .15s, box-shadow .15s;
+}
+.qtp-ss-trigger:focus, .qtp-ss-trigger.open {
+    outline: none; border-color: var(--teal-mid); box-shadow: 0 0 0 3px rgba(45,155,132,.12);
+}
+.qtp-ss-value    { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
+.qtp-ss-dropdown {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 200;
+    background: #fff; border: 1px solid var(--border-strong); border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    display: flex; flex-direction: column; overflow: hidden;
+}
+.qtp-ss-search-wrap {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; border-bottom: 1px solid var(--border);
+}
+.qtp-ss-search-icon { color: var(--text-light); font-size: 14px; flex-shrink: 0; }
+.qtp-ss-search  {
+    flex: 1; border: none; outline: none; font-family: 'Cairo', sans-serif;
+    font-size: 13px; color: var(--text-dark); background: transparent;
+}
+.qtp-ss-list    {
+    list-style: none; margin: 0; padding: 4px 0;
+    max-height: 220px; overflow-y: auto;
+}
+.qtp-ss-option  {
+    padding: 8px 12px; font-family: 'Cairo', sans-serif; font-size: 13px;
+    color: var(--text-dark); cursor: pointer; transition: background .1s;
+}
+.qtp-ss-option:hover  { background: var(--teal-light); color: var(--teal-dark); }
+.qtp-ss-option.active { background: var(--teal-dark); color: #fff; font-weight: 700; }
+.qtp-ss-empty   {
+    padding: 10px 12px; font-family: 'Cairo', sans-serif; font-size: 13px;
+    color: var(--text-light); text-align: center;
+}
+
 .qtp-aya-nav     { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .qtp-nav-btn     { display: flex; align-items: center; gap: 5px; padding: 9px 14px; border-radius: 9px; border: 1px solid var(--border-strong); background: #fff; color: var(--text-mid); font-family: 'Cairo', sans-serif; font-size: 13px; cursor: pointer; transition: all .15s; white-space: nowrap; }
 .qtp-nav-btn:hover:not(:disabled) { background: var(--teal-light); color: var(--teal-dark); border-color: var(--teal-mid); }
@@ -236,16 +279,83 @@
 
 {{-- Navigasyon Kartı --}}
 <div class="qtp-card">
+    <script>window.__qtpSuraOptions = @json($this->suraOptions);</script>
     <div class="qtp-nav-row">
         <div class="qtp-selects-row">
-            <label class="qtp-field">
-                {{ __('Sura') }}
-                <select wire:model.live="selectedSura" class="qtp-select">
-                    @foreach ($this->suras as $sura)
-                        <option value="{{ $sura }}">{{ __('sura_ref', ['number' => $sura]) }}</option>
-                    @endforeach
-                </select>
-            </label>
+            <div
+                class="qtp-field"
+                x-data="{
+                    open: false,
+                    search: '',
+                    options: window.__qtpSuraOptions || [],
+                    get filtered() {
+                        if (!this.search.trim()) return this.options;
+                        const q = this.search.toLowerCase();
+                        return this.options.filter(o => o.label.toLowerCase().includes(q));
+                    },
+                    get selectedLabel() {
+                        const opt = this.options.find(o => o.value === $wire.selectedSura);
+                        return opt ? opt.label : '—';
+                    },
+                    choose(val) {
+                        $wire.$set('selectedSura', val);
+                        this.open = false;
+                        this.search = '';
+                    }
+                }"
+                x-init="$watch('open', v => v && $nextTick(() => $refs.suraSrch?.focus()))"
+                @click.outside="open = false"
+                @keydown.escape.window="open = false"
+            >
+                <span>{{ __('Sura') }}</span>
+                <div class="qtp-ss-wrap">
+                    <button
+                        type="button"
+                        class="qtp-ss-trigger"
+                        :class="{ open }"
+                        @click="open = !open"
+                    >
+                        <span class="qtp-ss-value" x-text="selectedLabel"></span>
+                        <i class="ti" :class="open ? 'ti-chevron-up' : 'ti-chevron-down'" style="font-size:12px;opacity:.55;flex-shrink:0;"></i>
+                    </button>
+
+                    <div
+                        x-show="open"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="opacity-0 scale-95"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-95"
+                        class="qtp-ss-dropdown"
+                        style="display:none;"
+                        @click.stop
+                    >
+                        <div class="qtp-ss-search-wrap">
+                            <i class="ti ti-search qtp-ss-search-icon"></i>
+                            <input
+                                x-ref="suraSrch"
+                                x-model="search"
+                                type="text"
+                                class="qtp-ss-search"
+                                placeholder="{{ __('Search sura...') }}"
+                                @keydown.escape.stop="open = false"
+                            >
+                        </div>
+                        <ul class="qtp-ss-list">
+                            <template x-for="opt in filtered" :key="opt.value">
+                                <li
+                                    class="qtp-ss-option"
+                                    :class="{ active: opt.value === $wire.selectedSura }"
+                                    @click="choose(opt.value)"
+                                    x-text="opt.label"
+                                ></li>
+                            </template>
+                            <li x-show="filtered.length === 0" class="qtp-ss-empty">{{ __('No results.') }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <label class="qtp-field">
                 {{ __('Verse') }}
                 <select wire:model.live="selectedAya" class="qtp-select">

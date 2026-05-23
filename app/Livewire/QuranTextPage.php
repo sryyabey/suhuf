@@ -401,6 +401,21 @@ class QuranTextPage extends Component
             ->pluck('sura');
     }
 
+    public function getSuraOptionsProperty(): array
+    {
+        return $this->suras
+            ->map(fn ($s) => (int) $s)
+            ->map(fn (int $s): array => [
+                'value' => $s,
+                'label' => __('sura_option', [
+                    'number' => $s,
+                    'name' => self::$SURA_NAMES[$s] ?? (__('Sura prefix') . ' ' . $s),
+                ]),
+            ])
+            ->values()
+            ->all();
+    }
+
     public function getAyasProperty()
     {
         if (! $this->selectedSura) {

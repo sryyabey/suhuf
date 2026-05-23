@@ -165,11 +165,37 @@
     }
     .qpr-sura-card {
       display: inline-block;
-      padding: 14px 28px;
-      border: 1px solid rgba(184,134,11,.38);
-      border-radius: 4px;
-      background: linear-gradient(180deg, #fffaf0 0%, #f5ead5 100%);
-      box-shadow: 0 2px 8px rgba(184,134,11,.08);
+      min-width: 320px;
+      padding: 16px 30px 14px;
+      border: 1px solid rgba(184,134,11,.42);
+      border-radius: 6px;
+      background:
+        radial-gradient(circle at 50% -30px, rgba(212,168,67,.18), transparent 55%),
+        linear-gradient(180deg, #fffaf0 0%, #f7eddc 52%, #fffaf0 100%);
+      box-shadow:
+        0 2px 8px rgba(184,134,11,.1),
+        inset 0 0 0 1px rgba(255,255,255,.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .qpr-sura-card::before,
+    .qpr-sura-card::after {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      border-color: rgba(184,134,11,.5);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .qpr-sura-card::before {
+      top: 8px; right: 8px;
+      border-width: 1.5px 1.5px 0 0;
+      border-radius: 0 3px 0 0;
+    }
+    .qpr-sura-card::after {
+      bottom: 8px; left: 8px;
+      border-width: 0 0 1.5px 1.5px;
+      border-radius: 0 0 0 3px;
     }
     .qpr-sura-card-ornrow {
       display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -179,11 +205,13 @@
     .qpr-sura-card-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(184,134,11,.4), transparent); }
     .qpr-sura-card-name {
       font-family: var(--arabic-font-family);
-      font-size: 22px;
+      font-size: 26px;
       color: #5a3e0e;
-      letter-spacing: .3px;
-      margin-bottom: 10px;
+      letter-spacing: .2px;
+      margin-bottom: 9px;
       display: block;
+      line-height: 1.35;
+      text-shadow: 0 1px 0 rgba(255,255,255,.55);
     }
     .qpr-sura-card-num {
       font-family: 'Cairo', sans-serif;
@@ -193,11 +221,16 @@
       display: block;
     }
     .qpr-sura-card-stats {
-      display: flex; justify-content: center; gap: 18px;
+      display: flex; justify-content: center; gap: 10px;
       flex-wrap: wrap;
     }
     .qpr-sura-card-stat {
-      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      min-width: 74px;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      padding: 7px 8px 6px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(184,134,11,.22);
+      border-radius: 8px;
     }
     .qpr-sura-card-stat-val {
       font-family: 'Cairo', sans-serif;
@@ -208,14 +241,14 @@
     }
     .qpr-sura-card-stat-lbl {
       font-family: 'Cairo', sans-serif;
-      font-size: 10px;
+      font-size: 9.5px;
       color: #a07830;
       text-transform: uppercase;
       letter-spacing: .5px;
     }
     .qpr-sura-card-divider {
-      width: 1px; height: 28px;
-      background: rgba(184,134,11,.25);
+      width: 1px; height: 42px;
+      background: linear-gradient(180deg, transparent, rgba(184,134,11,.35), transparent);
       align-self: center;
     }
 
