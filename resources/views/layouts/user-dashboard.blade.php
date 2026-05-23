@@ -409,8 +409,9 @@
                 gap: .55rem;
             }
 
-            .search-box {
-                width: 150px;
+            .search-box,
+            .gs-box {
+                width: 140px;
                 padding: 6px 10px;
             }
 
@@ -464,14 +465,27 @@
 
             .logo-text {
                 font-size: 12.5px;
-                max-width: 145px;
+                max-width: 110px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
 
-            .search-box {
+            /* Arama kutusu: hem eski .search-box hem yeni .gs-box gizle */
+            .search-box,
+            .gs-box {
                 display: none;
+            }
+
+            /* Dil seçici, ayarlar ve tam ekran butonu mobilde gizle */
+            .tb-lang,
+            .tb-settings,
+            .tb-fullscreen {
+                display: none !important;
+            }
+
+            .topbar-right {
+                gap: .4rem;
             }
 
             .topbar-icon-btn,
@@ -548,14 +562,28 @@
                 @livewire('notification-bell')
 
                 {{-- Language Switcher --}}
-                <div style="display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:3px;">
+                <div class="tb-lang" style="display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:3px;">
                     <a href="{{ route('locale.switch', 'tr') }}"
                        style="font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;text-decoration:none;transition:all .15s;{{ app()->getLocale()==='tr' ? 'background:rgba(255,255,255,.2);color:#fff;' : 'color:rgba(255,255,255,.4);' }}">TR</a>
                     <a href="{{ route('locale.switch', 'en') }}"
                        style="font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;text-decoration:none;transition:all .15s;{{ app()->getLocale()==='en' ? 'background:rgba(255,255,255,.2);color:#fff;' : 'color:rgba(255,255,255,.4);' }}">EN</a>
                 </div>
 
-                <a class="topbar-icon-btn" href="{{ route('user.settings') }}" title="{{ __('Settings') }}"
+                {{-- Tam Ekran --}}
+                <button
+                    type="button"
+                    class="topbar-icon-btn tb-fullscreen"
+                    title="Tam Ekran"
+                    x-data="{ fs: false }"
+                    x-init="document.addEventListener('fullscreenchange', () => { fs = !!document.fullscreenElement })"
+                    @click="fs ? document.exitFullscreen() : document.documentElement.requestFullscreen()"
+                    :title="fs ? 'Tam Ekrandan Çık' : 'Tam Ekran'"
+                    style="cursor:pointer; background:none; border:1px solid rgba(255,255,255,.1); border-radius:8px;"
+                >
+                    <i class="ti" :class="fs ? 'ti-minimize' : 'ti-maximize'" aria-hidden="true"></i>
+                </button>
+
+                <a class="topbar-icon-btn tb-settings" href="{{ route('user.settings') }}" title="{{ __('Settings') }}"
                     style="text-decoration:none;"><i class="ti ti-settings" aria-hidden="true"></i></a>
                 <div
                     x-data="{
