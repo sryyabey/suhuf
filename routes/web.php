@@ -24,7 +24,10 @@ Route::get('/', function () {
         return redirect('/salih');
     }
 
-    return view('welcome');
+    // Dil bazlı private cache: tekrar ziyarette anında yüklenir (5 dk).
+    return response()->view('welcome')
+        ->header('Cache-Control', 'private, max-age=300')
+        ->header('Vary', 'Accept-Language, Cookie');
 })->name('home');
 
 Route::middleware(['auth', 'role:user|super_admin'])->group(function (): void {

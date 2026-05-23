@@ -111,6 +111,19 @@
 .nb-empty i { font-size: 28px; color: #e8dfc8; }
 .nb-empty-title { font-size: 13px; font-weight: 600; color: #5a4a2e; }
 .nb-empty-sub { font-size: 11.5px; }
+
+/* Mobilde: JS koordinatları yerine topbar altına sabitle */
+@media (max-width: 640px) {
+  .nb-dropdown {
+    top: var(--topbar-h) !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    border-radius: 0 0 16px 16px !important;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
 </style>
 
   {{-- Bell button --}}

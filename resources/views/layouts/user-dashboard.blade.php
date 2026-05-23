@@ -347,6 +347,12 @@
             color: #dc2626;
         }
 
+        /* Mobil çıkış butonu — varsayılan gizli, 640px altında gösterilir */
+        .tb-mobile-logout { display: none; }
+
+        /* Avatar dropdown — mobil override için class */
+        .avatar-dropdown { /* pozisyon JS tarafından belirlenir, mobil CSS override eder */ }
+
         .main {
             background: var(--cream);
             overflow-y: auto;
@@ -484,6 +490,11 @@
                 display: none !important;
             }
 
+            /* Mobil çıkış butonu: sadece mobilde göster */
+            .tb-mobile-logout {
+                display: block;
+            }
+
             .topbar-right {
                 gap: .4rem;
             }
@@ -496,6 +507,15 @@
 
             .topbar-icon-btn {
                 font-size: 15px;
+            }
+
+            /* Avatar dropdown: mobilde topbar'ın hemen altına, sağa yasla */
+            .avatar-dropdown {
+                top: var(--topbar-h) !important;
+                right: .65rem !important;
+                left: auto !important;
+                width: min(280px, calc(100vw - 1.3rem)) !important;
+                border-radius: 12px !important;
             }
 
             .sidebar-scroll {
@@ -561,6 +581,15 @@
                 @livewire('global-search')
                 @livewire('notification-bell')
 
+                {{-- Mobil Çıkış Butonu (sadece ≤640px'te görünür) --}}
+                <form method="POST" action="{{ route('logout') }}" class="tb-mobile-logout">
+                    @csrf
+                    <button type="submit" class="topbar-icon-btn" title="{{ __('Sign Out') }}"
+                        style="cursor:pointer; color:#fca5a5;">
+                        <i class="ti ti-logout" aria-hidden="true"></i>
+                    </button>
+                </form>
+
                 {{-- Language Switcher --}}
                 <div class="tb-lang" style="display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:3px;">
                     <a href="{{ route('locale.switch', 'tr') }}"
@@ -611,6 +640,7 @@
                         x-show="open"
                         x-transition
                         @click.outside="open = false"
+                        class="avatar-dropdown"
                         :style="`position:fixed; top:${top}px; right:${right}px; z-index:9999;`"
                         style="display:none; min-width:200px; background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,.12); overflow:hidden;"
                     >
