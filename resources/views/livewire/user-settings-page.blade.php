@@ -88,6 +88,33 @@
 .usp-success-toast { display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: #e8f5f2; border: 1px solid rgba(45,155,132,.3); border-radius: 9px; font-family: 'Cairo', sans-serif; font-size: 13px; color: var(--teal-dark); font-weight: 600; }
 .usp-success-toast i { font-size: 17px; }
 
+/* ── Tefsir kartı ───────────────────────────────────── */
+.usp-tafsir-current { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--teal-light); border: 1px solid rgba(45,155,132,.25); border-radius: 10px; margin-bottom: 14px; }
+.usp-tafsir-current-icon { width: 34px; height: 34px; border-radius: 8px; background: var(--teal-dark); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.usp-tafsir-current-info { flex: 1; }
+.usp-tafsir-current-name { font-family: 'Cairo', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--teal-dark); }
+.usp-tafsir-current-lang { font-family: 'Cairo', sans-serif; font-size: 11px; color: var(--text-mid); margin-top: 1px; }
+.usp-tafsir-clear-btn { border: 1px solid rgba(45,155,132,.3); background: rgba(255,255,255,.6); border-radius: 7px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--teal-dark); font-size: 14px; flex-shrink: 0; transition: background .12s; }
+.usp-tafsir-clear-btn:hover { background: rgba(255,255,255,.9); }
+
+.usp-tafsir-filter { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.usp-tafsir-filter-btn { padding: 5px 12px; border-radius: 8px; border: 1.5px solid var(--border-strong); background: #fff; font-family: 'Cairo', sans-serif; font-size: 12px; color: var(--text-mid); cursor: pointer; transition: all .12s; }
+.usp-tafsir-filter-btn:hover { background: var(--cream2); }
+.usp-tafsir-filter-btn.active { background: var(--teal-dark); color: #fff; border-color: var(--teal-dark); }
+
+.usp-tafsir-group-label { font-family: 'Cairo', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: .8px; padding: 8px 0 4px; }
+.usp-tafsir-list { display: flex; flex-direction: column; gap: 4px; max-height: 320px; overflow-y: auto; scrollbar-width: thin; }
+.usp-tafsir-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1.5px solid var(--border-strong); border-radius: 9px; cursor: pointer; transition: all .12s; background: #fff; }
+.usp-tafsir-item:hover { border-color: var(--teal-mid); background: var(--teal-light); }
+.usp-tafsir-item.is-selected { border-color: var(--teal-mid); background: var(--teal-light); }
+.usp-tafsir-item-name { font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 600; color: var(--text-dark); flex: 1; }
+.usp-tafsir-item-author { font-family: 'Cairo', sans-serif; font-size: 11px; color: var(--text-light); }
+.usp-tafsir-item-lang { font-family: 'Cairo', sans-serif; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; background: var(--cream2); color: var(--text-mid); border: 1px solid var(--border-strong); flex-shrink: 0; }
+.usp-tafsir-item.is-selected .usp-tafsir-item-lang { background: rgba(45,155,132,.15); border-color: rgba(45,155,132,.3); color: var(--teal-dark); }
+.usp-tafsir-check { color: var(--teal-dark); font-size: 16px; flex-shrink: 0; }
+
+.usp-tafsir-empty { padding: 24px; text-align: center; font-family: 'Cairo', sans-serif; font-size: 13px; color: var(--text-light); }
+
 /* ── Responsive ─────────────────────────────────────── */
 @media (max-width: 600px) {
     .usp-meal-cols { grid-template-columns: 1fr; }
@@ -289,6 +316,102 @@
                 <i class="ti ti-circle-check"></i> Tercihler başarıyla kaydedildi!
             </div>
         </div>
+
+    </div>
+</div>
+
+{{-- ── Tefsir Tercihi ─────────────────────────────────────────────── --}}
+@php
+$tafsirLangLabels = [
+    'turkish' => 'Türkçe',
+    'english' => 'İngilizce',
+    'arabic'  => 'Arapça',
+    'urdu'    => 'Urduca',
+    'bengali' => 'Bengalce',
+    'russian' => 'Rusça',
+    'Kurdish' => 'Kürtçe',
+];
+$tafsirLangCodes = [
+    'turkish' => 'TR',
+    'english' => 'EN',
+    'arabic'  => 'AR',
+    'urdu'    => 'UR',
+    'bengali' => 'BN',
+    'russian' => 'RU',
+    'Kurdish' => 'KU',
+];
+@endphp
+<div
+    class="usp-card"
+    x-data="{ langFilter: '' }"
+>
+    <div class="usp-card-header">
+        <div class="usp-card-icon teal"><i class="ti ti-book"></i></div>
+        <div>
+            <h2 class="usp-card-title">Tefsir Tercihi</h2>
+            <p class="usp-card-sub">Kur'an Metni sayfasında gösterilecek tefsiri seçin</p>
+        </div>
+    </div>
+    <div class="usp-card-body">
+
+        {{-- Mevcut seçim --}}
+        @if($preferredTafsirId && $preferredTafsirName)
+            <div class="usp-tafsir-current">
+                <div class="usp-tafsir-current-icon"><i class="ti ti-book-2"></i></div>
+                <div class="usp-tafsir-current-info">
+                    <div class="usp-tafsir-current-name">{{ $preferredTafsirName }}</div>
+                    <div class="usp-tafsir-current-lang">Aktif tefsir — Kur'an Metni sayfasında görünür</div>
+                </div>
+                <button type="button" class="usp-tafsir-clear-btn" wire:click="clearTafsir" title="Kaldır">
+                    <i class="ti ti-x"></i>
+                </button>
+            </div>
+        @endif
+
+        {{-- Dil filtresi --}}
+        <div class="usp-tafsir-filter">
+            <button type="button" class="usp-tafsir-filter-btn" :class="langFilter === '' ? 'active' : ''" @click="langFilter = ''">Tümü</button>
+            @foreach(array_keys($this->tafsirGrouped) as $lang)
+                <button type="button" class="usp-tafsir-filter-btn" :class="langFilter === '{{ $lang }}' ? 'active' : ''" @click="langFilter = '{{ $lang }}'">
+                    {{ $tafsirLangLabels[$lang] ?? ucfirst($lang) }}
+                </button>
+            @endforeach
+        </div>
+
+        {{-- Tefsir listesi --}}
+        @if(empty($this->tafsirGrouped))
+            <div class="usp-tafsir-empty">
+                <div wire:loading wire:target="tafsirGrouped">Tefsir listesi yükleniyor...</div>
+                <div wire:loading.remove wire:target="tafsirGrouped">Tefsir listesi alınamadı. İnternet bağlantınızı kontrol edin.</div>
+            </div>
+        @else
+            <div class="usp-tafsir-list">
+                @foreach($this->tafsirGrouped as $lang => $tafsirs)
+                    <template x-if="langFilter === '' || langFilter === '{{ $lang }}'">
+                        <div>
+                            <div class="usp-tafsir-group-label">{{ $tafsirLangLabels[$lang] ?? ucfirst($lang) }}</div>
+                            @foreach($tafsirs as $t)
+                                <div
+                                    class="usp-tafsir-item {{ $preferredTafsirId == $t['id'] ? 'is-selected' : '' }}"
+                                    wire:click="selectTafsir({{ $t['id'] }}, '{{ addslashes($t['name']) }}')"
+                                >
+                                    <div style="flex:1; min-width:0;">
+                                        <div class="usp-tafsir-item-name">{{ $t['name'] }}</div>
+                                        @if(!empty($t['author_name']))
+                                            <div class="usp-tafsir-item-author">{{ $t['author_name'] }}</div>
+                                        @endif
+                                    </div>
+                                    <span class="usp-tafsir-item-lang">{{ $tafsirLangCodes[$lang] ?? strtoupper(substr($lang, 0, 2)) }}</span>
+                                    @if($preferredTafsirId == $t['id'])
+                                        <i class="ti ti-circle-check usp-tafsir-check"></i>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    </template>
+                @endforeach
+            </div>
+        @endif
 
     </div>
 </div>

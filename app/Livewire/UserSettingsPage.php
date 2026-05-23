@@ -5,14 +5,21 @@ namespace App\Livewire;
 use App\Models\UserMealPreference;
 use App\Models\UserSetting;
 use App\Models\VerseTranslation;
+use App\Services\TafsirService;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class UserSettingsPage extends Component
 {
     public ?string $selectedLanguage = null;
 
-    public array $selectedMealKeys = [];
+    public array   $selectedMealKeys = [];
+
+    /* ── Tefsir ───────────────────────────────────────────────────── */
+    public ?int    $preferredTafsirId   = null;
+    public ?string $preferredTafsirName = null;
+    public string  $tafsirLangFilter    = '';
 
     public function mount(): void
     {
@@ -23,6 +30,9 @@ class UserSettingsPage extends Component
         $this->selectedLanguage = $user?->setting?->preferred_language ?? $defaultLanguage;
 
         $this->loadSelectedMeals();
+
+        $this->preferredTafsirId   = $user?->setting?->preferred_tafsir_id;
+        $this->preferredTafsirName = $user?->setting?->preferred_tafsir_name;
     }
 
     public function updatedSelectedLanguage(): void
@@ -97,6 +107,58 @@ class UserSettingsPage extends Component
 
         $this->dispatch('settings-saved');
     }
+
+    /* ── Tefsir metodları ─────────────────────────────────────────── */
+
+    public function selectTafsir(int $id, string $name): void
+    {
+        $user = auth()->user();
+        if (! $user) {
+            return;
+        }
+
+        $this->preferredTafsirId   = $id;
+        $this->preferredTafsirName = $name;
+
+        UserSetting::query()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'preferred_tafsir_id'   => $id,
+                'preferred_tafsir_name' => $name,
+            ]
+        );
+
+        $this->dispatch('settings-saved');
+    }
+
+    public function clearTafsir(): void
+    {
+        $user = auth()->user();
+        if (! $user) {
+            return;
+        }
+
+        $this->preferredTafsirId   = null;
+        $this->preferredTafsirName = null;
+
+        UserSetting::query()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'preferred_tafsir_id'   => null,
+                'preferred_tafsir_name' => null,
+            ]
+        );
+
+        $this->dispatch('settings-saved');
+    }
+
+    #[Computed]
+    public function tafsirGrouped(): array
+    {
+        return app(TafsirService::class)->getGroupedByLanguage();
+    }
+
+    /* ── Meal ─────────────────────────────────────────────────────── */
 
     public function getLanguagesProperty()
     {

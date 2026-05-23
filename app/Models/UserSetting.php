@@ -10,13 +10,16 @@ class UserSetting extends Model
     protected $fillable = [
         'user_id',
         'preferred_language',
+        'preferred_tafsir_id',
+        'preferred_tafsir_name',
         'last_read_sura',
         'last_read_aya',
     ];
 
     protected $casts = [
-        'last_read_sura' => 'integer',
-        'last_read_aya'  => 'integer',
+        'preferred_tafsir_id' => 'integer',
+        'last_read_sura'      => 'integer',
+        'last_read_aya'       => 'integer',
     ];
 
     public function user(): BelongsTo

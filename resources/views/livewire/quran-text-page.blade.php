@@ -159,6 +159,12 @@
 .qtp-resume-close  { width: 28px; height: 28px; border-radius: 7px; border: 1px solid rgba(45,155,132,.25); background: rgba(255,255,255,.6); color: var(--teal-dark); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 15px; flex-shrink: 0; transition: background .12s; }
 .qtp-resume-close:hover { background: rgba(255,255,255,.9); }
 
+/* ── Tefsir ─────────────────────────────────────────── */
+.qtp-tafsir-panel { border: 1px solid var(--border); border-top: none; border-radius: 0 0 9px 9px; padding: 16px 18px; background: #fdfdfc; }
+.qtp-tafsir-text  { font-family: 'Lora', Georgia, serif; font-size: 14.5px; line-height: 2; color: var(--text-dark); margin: 0; white-space: pre-line; }
+.qtp-tafsir-error { display: flex; align-items: center; gap: 7px; font-family: 'Cairo', sans-serif; font-size: 12.5px; color: #b42318; }
+.qtp-tafsir-hint  { display: flex; align-items: center; gap: 7px; font-family: 'Cairo', sans-serif; font-size: 12.5px; color: var(--text-light); padding: 9px 12px; background: var(--cream2); border: 1px solid var(--border); border-radius: 9px; }
+
 /* ── Responsive ─────────────────────────────────────── */
 @media (max-width: 640px) {
     .qtp-form-grid  { grid-template-columns: 1fr; }
@@ -302,6 +308,53 @@
             <div class="qtp-no-translation">
                 Tercüme görmek için
                 <a href="{{ route('user.settings') }}" class="qtp-link">dil ve meal tercihinizi ayarlayın.</a>
+            </div>
+        @endif
+
+        {{-- Tefsir (satır içi akordeon) --}}
+        @if($preferredTafsirId)
+            <div>
+                <button
+                    type="button"
+                    wire:click="toggleTafsir"
+                    class="qtp-collapsible-btn"
+                    style="margin-bottom:0;"
+                >
+                    <span wire:loading.remove wire:target="toggleTafsir" style="display:flex;align-items:center;gap:7px;flex:1;">
+                        <i class="ti ti-book"></i>
+                        Tefsir
+                        @if($preferredTafsirName)
+                            <span style="font-weight:400;color:var(--text-light);font-size:11px;">· {{ $preferredTafsirName }}</span>
+                        @endif
+                    </span>
+                    <span wire:loading wire:target="toggleTafsir" style="display:flex;align-items:center;gap:6px;flex:1;">
+                        <i class="ti ti-loader-2" style="animation:spin .8s linear infinite;"></i>
+                        Bu ayet için tefsir alınıyor...
+                    </span>
+                    <i class="ti qtp-collapsible-chevron {{ $tafsirOpen ? 'ti-chevron-up open' : 'ti-chevron-down' }}"></i>
+                </button>
+
+                @if($tafsirOpen)
+                    <div class="qtp-tafsir-panel" x-transition>
+                        @if($tafsirText)
+                            <p class="qtp-tafsir-text">{{ $tafsirText }}</p>
+                            <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;align-items:center;gap:5px;font-family:'Cairo',sans-serif;font-size:11px;color:var(--text-light);">
+                                <i class="ti ti-database" style="font-size:12px;"></i>
+                                Sonraki açılışlarda önbellekten anında yüklenir
+                            </div>
+                        @else
+                            <div class="qtp-tafsir-error">
+                                <i class="ti ti-alert-circle"></i>
+                                Tefsir metni şu an alınamadı. Lütfen daha sonra tekrar deneyin.
+                            </div>
+                        @endif
+                    </div>
+                @endif
+            </div>
+        @else
+            <div class="qtp-tafsir-hint">
+                <i class="ti ti-book"></i>
+                <a href="{{ route('user.settings') }}" class="qtp-link">Tefsir görmek için ayarlardan tercih seçin</a>
             </div>
         @endif
 
