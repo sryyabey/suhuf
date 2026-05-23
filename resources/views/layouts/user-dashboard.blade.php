@@ -200,7 +200,7 @@
     </div>
     <div class="topbar-right">
       @livewire('global-search')
-      <div class="topbar-icon-btn notif-dot" title="Bildirimler"><i class="ti ti-bell" aria-hidden="true"></i></div>
+      @livewire('notification-bell')
       <a class="topbar-icon-btn" href="{{ route('user.settings') }}" title="Ayarlar" style="text-decoration:none;"><i class="ti ti-settings" aria-hidden="true"></i></a>
       <div class="avatar" title="Profil">{{ $initials }}</div>
     </div>
