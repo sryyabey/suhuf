@@ -10,6 +10,7 @@ class UserSetting extends Model
     protected $fillable = [
         'user_id',
         'preferred_language',
+        'preferred_arabic_font',
         'preferred_tafsir_id',
         'preferred_tafsir_name',
         'last_read_sura',

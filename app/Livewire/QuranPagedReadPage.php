@@ -65,10 +65,13 @@ class QuranPagedReadPage extends Component
     public ?int   $newNoteWordPos = null;
     public array  $newNoteTagIds  = [];
     public string $newTagName     = '';
+    public string $arabicFontKey  = 'amiri';
 
     // ── Mount ──────────────────────────────────────────────────────────
     public function mount(): void
     {
+        $this->arabicFontKey = auth()->user()?->setting?->preferred_arabic_font ?? 'amiri';
+
         $first = QuranWord::query()
             ->where('char_type', 'word')
             ->orderBy('page')
@@ -393,13 +396,26 @@ class QuranPagedReadPage extends Component
             return $row;
         });
 
+        $suraNumbers = $rows->pluck('sura')->unique()->values()->all();
+        $suraStats   = $this->getSuraStats($suraNumbers);
+
         return view('livewire.quran-paged-read-page', [
             'rows'        => $rows,
+            'suraStats'   => $suraStats,
             'suraOptions' => $this->getSuraOptions(),
             'ayaOptions'  => $this->getAyaOptions(),
             'pageOptions' => $this->getPageOptions(),
             'SURA_NAMES'  => self::$SURA_NAMES,
         ]);
+    }
+
+    public function getArabicFontFamilyProperty(): string
+    {
+        return match ($this->arabicFontKey) {
+            'noto_naskh' => "'Noto Naskh Arabic', 'Amiri', 'Scheherazade New', 'Times New Roman', serif",
+            'scheherazade' => "'Scheherazade New', 'Amiri', 'Noto Naskh Arabic', 'Times New Roman', serif",
+            default => "'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', 'Times New Roman', serif",
+        };
     }
 
     // ── Private helpers ─────────────────────────────────────────────────
@@ -475,6 +491,27 @@ class QuranPagedReadPage extends Component
                 ];
             })
             ->values();
+    }
+
+    private function getSuraStats(array $suraNumbers): array
+    {
+        if (empty($suraNumbers)) {
+            return [];
+        }
+
+        return QuranWord::query()
+            ->whereIn('sura', $suraNumbers)
+            ->where('char_type', 'word')
+            ->selectRaw('sura, count(distinct aya) as aya_count, count(*) as word_count, sum(length(text)) as char_count')
+            ->groupBy('sura')
+            ->get()
+            ->keyBy('sura')
+            ->map(fn ($row) => [
+                'aya_count'  => (int) $row->aya_count,
+                'word_count' => (int) $row->word_count,
+                'char_count' => (int) $row->char_count,
+            ])
+            ->all();
     }
 
     private function getSuraOptions(): array

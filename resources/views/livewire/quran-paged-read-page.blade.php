@@ -1,5 +1,7 @@
-<div class="qpr">
+<div class="qpr" style="--arabic-font-family: {{ $this->arabicFontFamily }};">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Scheherazade+New:wght@400;700&display=swap');
+
     .qpr { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
 
     /* ── Header ─────────────────────────────────────────────── */
@@ -30,77 +32,234 @@
 
     /* ── Mushaf page ─────────────────────────────────────────── */
     .qpr-page {
-      background: linear-gradient(180deg,#fffefb 0%,#fbf7ee 100%);
-      border: 1px solid rgba(184,134,11,.26);
-      border-radius: 20px;
-      padding: 22px 24px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 18px rgba(66,47,11,.08);
+      background: linear-gradient(180deg, #fdfaf3 0%, #f9f4e8 50%, #fdfaf3 100%);
+      border: 1px solid rgba(184,134,11,.3);
+      outline: 5px solid rgba(184,134,11,.07);
+      outline-offset: -10px;
+      border-radius: 4px;
+      padding: 36px 40px 32px;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.55),
+        6px 0 14px rgba(66,47,11,.06),
+        -6px 0 14px rgba(66,47,11,.06),
+        0 10px 28px rgba(66,47,11,.1);
+      position: relative;
     }
-    .qpr-page-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; font-family:'Cairo',sans-serif; color:var(--text-light); font-size:12px; border-bottom:1px dashed rgba(184,134,11,.25); padding-bottom:10px; }
-    .qpr-page-num  { font-weight:700; color:var(--gold); font-size:14px; }
-    .qpr-page-range { font-size:11.5px; }
+    /* Köşe süslemeleri */
+    .qpr-page::before, .qpr-page::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: rgba(184,134,11,.45);
+      border-style: solid;
+    }
+    .qpr-page::before { top: 12px; right: 12px; border-width: 2px 2px 0 0; border-radius: 0 3px 0 0; }
+    .qpr-page::after  { bottom: 12px; left: 12px;  border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; }
 
-    /* Arabic text */
-    .qpr-mushaf { direction:rtl; display:flex; flex-direction:column; gap:4px; font-family:'Amiri',serif; font-size:32px; line-height:2.2; color:var(--text-dark); }
-    .qpr-ayah   { display:block; position:relative; }
+    /* Sayfa başı — ortada sayfa numarası ve sure aralığı */
+    .qpr-page-head {
+      text-align: center;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(184,134,11,.22);
+    }
+    .qpr-page-num {
+      font-family: var(--arabic-font-family);
+      font-size: 16px;
+      font-weight: 700;
+      color: #8a6522;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .qpr-page-num::before, .qpr-page-num::after {
+      content: '❧';
+      font-size: 13px;
+      opacity: .55;
+      color: #b89647;
+    }
+    .qpr-page-range {
+      font-family: 'Cairo', sans-serif;
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    /* ── Akan Mushaf metni ── */
+    /* Gerçek mushaf gibi: tüm ayetler tek blok, sağdan sola akar */
+    .qpr-mushaf {
+      direction: rtl;
+      display: block;
+      font-family: var(--arabic-font-family);
+      font-weight: 400;
+      font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
+      font-kerning: normal;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 30px;
+      line-height: 2.3;
+      color: #1a1208;
+      text-align: right;
+      text-align-last: auto;
+      word-spacing: normal;
+    }
+
+    /* Her ayet inline — blok değil, metin akar */
+    .qpr-ayah { display: inline; }
     .qpr-ayah-btn {
-      width:100%; border:0; background:transparent; padding:6px 8px; margin:0;
-      cursor:pointer; color:inherit; font:inherit; line-height:inherit;
-      direction:inherit; text-align:right; border-radius:10px;
-      transition:background .12s;
-      position:relative;
+      display: inline;
+      border: 0; background: transparent; padding: 0 1px; margin: 0;
+      cursor: pointer; color: inherit; font: inherit; line-height: inherit;
+      direction: inherit;
+      border-radius: 3px;
+      transition: background .12s;
     }
-    .qpr-ayah-btn:hover   { background:rgba(45,155,132,.07); }
-    .qpr-ayah-btn:focus   { outline:none; background:rgba(45,155,132,.1); box-shadow:0 0 0 2px rgba(45,155,132,.2); }
+    .qpr-ayah-btn:hover   { background: rgba(45,155,132,.1); }
+    .qpr-ayah-btn:focus   { outline: none; background: rgba(45,155,132,.13); box-shadow: 0 0 0 2px rgba(45,155,132,.28); border-radius: 3px; }
 
-    /* Note badge — teal pill overlaid top-left (LTR corner = right of RTL text start) */
+    /* Not rozeti — ayetin yanında üst simge olarak */
     .qpr-note-badge {
-      position:absolute;
-      top:-6px;
-      left:6px;
-      display:inline-flex;
-      align-items:center;
-      gap:3px;
-      background:var(--teal-dark);
-      color:#fff;
-      font-family:'Cairo',sans-serif;
-      font-size:10px;
-      font-weight:700;
-      padding:1px 7px;
-      border-radius:999px;
-      box-shadow:0 1px 4px rgba(0,0,0,.2);
-      z-index:1;
-      pointer-events:none;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: baseline;
+      gap: 2px;
+      background: var(--teal-dark);
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 999px;
+      margin-left: 2px;
+      line-height: 1;
+      position: relative;
+      top: -0.45em;
+      pointer-events: none;
     }
-    .qpr-note-badge i { font-size:10px; }
+    .qpr-note-badge i { font-size: 8px; }
 
-    /* Aya end marker — gold circle */
+    /* Ayet sonu numarası — altın çember, inline akışta */
     .qpr-marker {
-      display:inline-flex; align-items:center; justify-content:center;
-      width:30px; height:30px; border-radius:50%;
-      border:1.5px solid var(--gold-mid); color:var(--gold);
-      font-family:'Cairo',sans-serif; font-size:12px; font-weight:700;
-      margin:0 6px; vertical-align:middle; flex-shrink:0;
-      background:rgba(212,168,67,.07);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(184,134,11,.5);
+      color: #8a6522;
+      font-family: var(--arabic-font-family);
+      font-size: 12px;
+      font-weight: 700;
+      margin: 0 4px;
+      vertical-align: baseline;
+      background: rgba(212,168,67,.1);
+      flex-shrink: 0;
     }
 
-    /* Sura transition separator */
-    .qpr-sura-sep { margin: 10px 0 12px; text-align: center; }
-    .qpr-sura-sep-line {
-      display:inline-flex; align-items:center; gap:10px;
-      padding:5px 12px;
-      border:1px solid rgba(184,134,11,.35);
-      border-radius:999px;
-      background:linear-gradient(180deg,#fffaf0 0%,#f7efdd 100%);
+    /* Sure geçiş kartı — inline akışı kesmek için block */
+    .qpr-sura-sep {
+      display: block;
+      margin: 24px 0 20px;
+      text-align: center;
     }
-    .qpr-sura-sep-orn  { color:#b89647; font-size:12px; line-height:1; }
-    .qpr-sura-sep-text { font-family:'Cairo',sans-serif; font-size:11px; letter-spacing:.4px; color:#8a6b2e; text-transform:uppercase; }
+    .qpr-sura-card {
+      display: inline-block;
+      padding: 14px 28px;
+      border: 1px solid rgba(184,134,11,.38);
+      border-radius: 4px;
+      background: linear-gradient(180deg, #fffaf0 0%, #f5ead5 100%);
+      box-shadow: 0 2px 8px rgba(184,134,11,.08);
+    }
+    .qpr-sura-card-ornrow {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-bottom: 8px;
+    }
+    .qpr-sura-card-orn  { color: #b89647; font-size: 16px; line-height: 1; }
+    .qpr-sura-card-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(184,134,11,.4), transparent); }
+    .qpr-sura-card-name {
+      font-family: var(--arabic-font-family);
+      font-size: 22px;
+      color: #5a3e0e;
+      letter-spacing: .3px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .qpr-sura-card-num {
+      font-family: 'Cairo', sans-serif;
+      font-size: 11px;
+      color: #b89647;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .qpr-sura-card-stats {
+      display: flex; justify-content: center; gap: 18px;
+      flex-wrap: wrap;
+    }
+    .qpr-sura-card-stat {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+    }
+    .qpr-sura-card-stat-val {
+      font-family: 'Cairo', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #5a3e0e;
+      line-height: 1;
+    }
+    .qpr-sura-card-stat-lbl {
+      font-family: 'Cairo', sans-serif;
+      font-size: 10px;
+      color: #a07830;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .qpr-sura-card-divider {
+      width: 1px; height: 28px;
+      background: rgba(184,134,11,.25);
+      align-self: center;
+    }
 
     /* ── Navigation ──────────────────────────────────────────── */
-    .qpr-nav     { display:flex; justify-content:center; gap:8px; margin-top:14px; }
-    .qpr-nav-btn { border:1px solid var(--border-strong); background:#fff; color:var(--text-mid); border-radius:9px; padding:8px 18px; font-family:'Cairo',sans-serif; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:background .13s, color .13s; }
-    .qpr-nav-btn:hover:not(:disabled) { background:var(--teal-light); color:var(--teal-dark); border-color:var(--teal-mid); }
-    .qpr-nav-btn:disabled { opacity:.45; cursor:not-allowed; }
+    .qpr-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(184,134,11,.18);
+    }
+    .qpr-nav-btn {
+      border: 1px solid rgba(184,134,11,.35);
+      background: rgba(253,250,243,.8);
+      color: #7a5a1e;
+      border-radius: 4px;
+      padding: 7px 16px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .13s, color .13s, border-color .13s;
+    }
+    .qpr-nav-btn:hover:not(:disabled) {
+      background: rgba(212,168,67,.15);
+      color: #5a3e0e;
+      border-color: rgba(184,134,11,.6);
+    }
+    .qpr-nav-btn:disabled { opacity: .4; cursor: not-allowed; }
+    .qpr-nav-center {
+      font-family: var(--arabic-font-family);
+      font-size: 15px;
+      color: #8a6522;
+      padding: 4px 16px;
+      border: 1px solid rgba(184,134,11,.25);
+      border-radius: 4px;
+      background: rgba(253,250,243,.5);
+      min-width: 60px;
+      text-align: center;
+    }
 
     /* ── Modal ───────────────────────────────────────────────── */
     .qprm-backdrop {
@@ -134,7 +293,11 @@
     }
     .qprm-aya-arabic {
       direction:rtl; text-align:right;
-      font-family:'Amiri',serif; font-size:26px; line-height:2;
+      font-family: var(--arabic-font-family);
+      font-weight: 400;
+      font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
+      text-rendering: optimizeLegibility;
+      font-size:26px; line-height:2;
       color:var(--text-dark); margin-bottom:8px;
     }
     .qprm-aya-translation {
@@ -168,7 +331,7 @@
     .qprm-note-body { font-family:'Lora',Georgia,serif; font-size:13.5px; color:var(--text-mid); line-height:1.75; white-space:pre-wrap; }
     .qprm-word-chip { margin-bottom:8px; }
     .qprm-word-chip-label { font-family:'Cairo',sans-serif; font-size:10px; font-weight:700; color:var(--text-light); text-transform:uppercase; letter-spacing:.4px; margin-bottom:3px; }
-    .qprm-word-chip-ar    { display:inline-block; direction:rtl; font-family:'Amiri',serif; font-size:26px; color:var(--teal-dark); background:var(--teal-light); border:1px solid rgba(45,155,132,.24); border-radius:9px; padding:2px 10px; line-height:1.65; }
+    .qprm-word-chip-ar    { display:inline-block; direction:rtl; font-family:var(--arabic-font-family); font-size:26px; color:var(--teal-dark); background:var(--teal-light); border:1px solid rgba(45,155,132,.24); border-radius:9px; padding:2px 10px; line-height:1.65; font-weight: 400; font-feature-settings: "liga" 1, "calt" 1, "kern" 1; text-rendering: optimizeLegibility; }
     .qprm-note-tags { margin-top:8px; display:flex; flex-wrap:wrap; gap:5px; }
     .qprm-note-tag  { font-family:'Cairo',sans-serif; font-size:11px; color:var(--teal-dark); background:var(--teal-light); border:1px solid rgba(45,155,132,.25); border-radius:999px; padding:2px 8px; }
 
@@ -236,11 +399,54 @@
     /* Footer */
     .qprm-footer { padding:10px 16px; border-top:1px solid var(--border); background:var(--cream); border-radius:0 0 16px 16px; }
 
+    /* ── Arama'lı Sure Dropdown ─────────────────────────── */
+    .qpr-ss-wrap     { position: relative; }
+    .qpr-ss-trigger  {
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      border: 1px solid var(--border-strong); border-radius: 9px;
+      padding: 8px 10px; font-family: 'Cairo', sans-serif; font-size: 13.5px;
+      background: #fff; color: var(--text-dark); cursor: pointer; text-align: left;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .qpr-ss-trigger:focus, .qpr-ss-trigger.open {
+      outline: none; border-color: var(--teal-mid); box-shadow: 0 0 0 3px rgba(45,155,132,.12);
+    }
+    .qpr-ss-value    { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
+    .qpr-ss-dropdown {
+      position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 200;
+      background: #fff; border: 1px solid var(--border-strong); border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .qpr-ss-search-wrap {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border-bottom: 1px solid var(--border);
+    }
+    .qpr-ss-search-icon { color: var(--text-light); font-size: 14px; flex-shrink: 0; }
+    .qpr-ss-search  {
+      flex: 1; border: none; outline: none; font-family: 'Cairo', sans-serif;
+      font-size: 13px; color: var(--text-dark); background: transparent;
+    }
+    .qpr-ss-list    {
+      list-style: none; margin: 0; padding: 4px 0;
+      max-height: 220px; overflow-y: auto;
+    }
+    .qpr-ss-option  {
+      padding: 8px 12px; font-family: 'Cairo', sans-serif; font-size: 13px;
+      color: var(--text-dark); cursor: pointer; transition: background .1s;
+    }
+    .qpr-ss-option:hover  { background: var(--teal-light); color: var(--teal-dark); }
+    .qpr-ss-option.active { background: var(--teal-dark); color: #fff; font-weight: 700; }
+    .qpr-ss-empty   {
+      padding: 10px 12px; font-family: 'Cairo', sans-serif; font-size: 13px;
+      color: var(--text-light); text-align: center;
+    }
+
     @media (max-width:768px) {
       .qpr-toolbar  { grid-template-columns:1fr; }
-      .qpr-mushaf   { font-size:26px; line-height:2.2; }
-      .qpr-page     { padding:14px 16px; }
-      .qpr-page-head { flex-direction:column; align-items:flex-start; gap:4px; }
+      .qpr-mushaf   { font-size:24px; line-height:2.15; }
+      .qpr-page     { padding:20px 18px; }
+      .qpr-page::before, .qpr-page::after { width:14px; height:14px; }
       .qprm-aya-arabic { font-size:22px; }
       .qprm-type-row { grid-template-columns:1fr; }
     }
@@ -255,15 +461,86 @@
   </div>
 
   {{-- ── Toolbar ──────────────────────────────────────────────────────── --}}
+  {{-- JSON'u script tag içinde tanımlıyoruz — x-data attribute içinde " tırnak çakışması yaşanmaz --}}
+  <script>window.__qprSuraOptions = @json($suraOptions);</script>
+
   <div class="qpr-toolbar">
-    <label class="qpr-field">
+
+    {{-- Sure: arama özellikli custom dropdown --}}
+    <div
+      class="qpr-field"
+      x-data="{
+        open: false,
+        search: '',
+        options: window.__qprSuraOptions || [],
+        get filtered() {
+          if (!this.search.trim()) return this.options;
+          const q = this.search.toLowerCase();
+          return this.options.filter(o => o.label.toLowerCase().includes(q));
+        },
+        get selectedLabel() {
+          const opt = this.options.find(o => o.value === $wire.selectedSura);
+          return opt ? opt.label : '—';
+        },
+        choose(val) {
+          $wire.$set('selectedSura', val);
+          this.open = false;
+          this.search = '';
+        }
+      }"
+      x-init="$watch('open', v => v && $nextTick(() => $refs.suraSrch?.focus()))"
+      @click.outside="open = false"
+      @keydown.escape.window="open = false"
+    >
       <span class="qpr-label">{{ __('Sura') }}</span>
-      <select wire:model.live="selectedSura" class="qpr-select">
-        @foreach ($suraOptions as $opt)
-          <option value="{{ $opt['value'] }}">{{ $opt['label'] }}</option>
-        @endforeach
-      </select>
-    </label>
+      <div class="qpr-ss-wrap">
+        <button
+          type="button"
+          class="qpr-ss-trigger"
+          :class="{ open }"
+          @click="open = !open"
+        >
+          <span class="qpr-ss-value" x-text="selectedLabel"></span>
+          <i class="ti" :class="open ? 'ti-chevron-up' : 'ti-chevron-down'" style="font-size:12px;opacity:.55;flex-shrink:0;"></i>
+        </button>
+
+        <div
+          x-show="open"
+          x-transition:enter="transition ease-out duration-100"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-75"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-95"
+          class="qpr-ss-dropdown"
+          style="display:none;"
+          @click.stop
+        >
+          <div class="qpr-ss-search-wrap">
+            <i class="ti ti-search qpr-ss-search-icon"></i>
+            <input
+              x-ref="suraSrch"
+              x-model="search"
+              type="text"
+              class="qpr-ss-search"
+              placeholder="{{ __('Search sura...') }}"
+              @keydown.escape.stop="open = false"
+            >
+          </div>
+          <ul class="qpr-ss-list">
+            <template x-for="opt in filtered" :key="opt.value">
+              <li
+                class="qpr-ss-option"
+                :class="{ active: opt.value === $wire.selectedSura }"
+                @click="choose(opt.value)"
+                x-text="opt.label"
+              ></li>
+            </template>
+            <li x-show="filtered.length === 0" class="qpr-ss-empty">{{ __('No results.') }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <label class="qpr-field">
       <span class="qpr-label">{{ __('Verse') }}</span>
       <select wire:model.live="selectedAya" class="qpr-select">
@@ -321,15 +598,15 @@
     wire:target="selectedPage,prevPage,nextPage,selectedSura,selectedAya"
   >
     <div class="qpr-page-head">
-      <span class="qpr-page-num">{{ __('page_ref', ['number' => $selectedPage]) }}</span>
+      <div class="qpr-page-num">{{ __('page_ref', ['number' => $selectedPage]) }}</div>
       @php $firstRow = $rows->first(); $lastRow = $rows->last(); @endphp
       @if($firstRow && $lastRow)
-        <span class="qpr-page-range">
+        <div class="qpr-page-range">
           {{ $firstRow['sura_name'] }} {{ $firstRow['sura'] }}:{{ $firstRow['aya'] }}
           @if($lastRow['sura'] !== $firstRow['sura'] || $lastRow['aya'] !== $firstRow['aya'])
             — {{ $lastRow['sura_name'] }} {{ $lastRow['sura'] }}:{{ $lastRow['aya'] }}
           @endif
-        </span>
+        </div>
       @endif
     </div>
 
@@ -341,19 +618,42 @@
         @endphp
 
         @if(!$loop->first && $isSuraStart)
-          <div class="qpr-sura-sep" aria-hidden="true">
-            <div class="qpr-sura-sep-line">
-              <span class="qpr-sura-sep-orn">✦</span>
-              <span class="qpr-sura-sep-text">{{ __('sura_start_label', ['number' => $row['sura']]) }}</span>
-              <span class="qpr-sura-sep-orn">✦</span>
+          @php $st = $suraStats[$row['sura']] ?? null; @endphp
+          <div class="qpr-sura-sep">
+            <div class="qpr-sura-card">
+              <div class="qpr-sura-card-ornrow">
+                <span class="qpr-sura-card-line"></span>
+                <span class="qpr-sura-card-orn">✦</span>
+                <span class="qpr-sura-card-line"></span>
+              </div>
+              <span class="qpr-sura-card-num">{{ $row['sura'] }}. {{ __('Sura') }}</span>
+              <span class="qpr-sura-card-name">{{ $row['sura_name'] }}</span>
+              @if($st)
+                <div class="qpr-sura-card-stats">
+                  <div class="qpr-sura-card-stat">
+                    <span class="qpr-sura-card-stat-val">{{ $st['aya_count'] }}</span>
+                    <span class="qpr-sura-card-stat-lbl">{{ __('Verse') }}</span>
+                  </div>
+                  <div class="qpr-sura-card-divider"></div>
+                  <div class="qpr-sura-card-stat">
+                    <span class="qpr-sura-card-stat-val">{{ number_format($st['word_count']) }}</span>
+                    <span class="qpr-sura-card-stat-lbl">{{ __('Word') }}</span>
+                  </div>
+                  <div class="qpr-sura-card-divider"></div>
+                  <div class="qpr-sura-card-stat">
+                    <span class="qpr-sura-card-stat-val">{{ number_format($st['char_count']) }}</span>
+                    <span class="qpr-sura-card-stat-lbl">{{ __('Letter') }}</span>
+                  </div>
+                </div>
+              @endif
             </div>
           </div>
         @endif
 
         <span class="qpr-ayah">
-          {{-- Note count badge (top-left corner, above aya) --}}
+          {{-- Not rozeti: inline, ayetin başında üst simge olarak --}}
           @if(($row['note_count'] ?? 0) > 0)
-            <span class="qpr-note-badge">
+            <span class="qpr-note-badge" title="{{ $row['note_count'] }} not">
               <i class="ti ti-notes"></i> {{ $row['note_count'] }}
             </span>
           @endif
@@ -374,13 +674,14 @@
     </div>
 
     <div class="qpr-nav">
-      <button type="button" class="qpr-nav-btn" wire:click="prevPage" wire:loading.attr="disabled" wire:target="prevPage">
-        <span wire:loading.remove wire:target="prevPage"><i class="ti ti-arrow-left"></i> {{ __('Previous Page') }}</span>
-        <span wire:loading wire:target="prevPage">…</span>
-      </button>
       <button type="button" class="qpr-nav-btn" wire:click="nextPage" wire:loading.attr="disabled" wire:target="nextPage">
-        <span wire:loading.remove wire:target="nextPage">{{ __('Next Page') }} <i class="ti ti-arrow-right"></i></span>
+        <span wire:loading.remove wire:target="nextPage"><i class="ti ti-arrow-right"></i> {{ __('Next Page') }}</span>
         <span wire:loading wire:target="nextPage">…</span>
+      </button>
+      <span class="qpr-nav-center" wire:loading.class="opacity-50">{{ $selectedPage }}</span>
+      <button type="button" class="qpr-nav-btn" wire:click="prevPage" wire:loading.attr="disabled" wire:target="prevPage">
+        <span wire:loading.remove wire:target="prevPage">{{ __('Previous Page') }} <i class="ti ti-arrow-left"></i></span>
+        <span wire:loading wire:target="prevPage">…</span>
       </button>
     </div>
   </div>

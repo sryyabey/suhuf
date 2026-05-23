@@ -51,6 +51,8 @@
     "Create Free Account": "Ücretsiz Hesap Oluştur",
     "Sura": "Sure",
     "Verse": "Ayet",
+    "Word": "Kelime",
+    "Letter": "Harf",
     "Word Analysis": "Kelime Analizi",
     "Personal Note": "Kişisel Not",
     "Everything you need in one place": "İhtiyacınız olan her şey tek bir yerde",
@@ -292,5 +294,8 @@
     "All meals are selected.": "Tüm mealler seçili.",
     "Your selections are applied temporarily. To make changes permanent, click": "Seçimleriniz geçici olarak uygulanır. Değişiklikleri kalıcı hale getirmek için",
     "Save Preferences": "Tercihleri Kaydet",
-    "Preferences saved successfully!": "Tercihler başarıyla kaydedildi!"
+    "Preferences saved successfully!": "Tercihler başarıyla kaydedildi!",
+    "Arabic Font": "Arapça Font",
+    "Select Arabic Font": "Arapça Font Seçin",
+    "This preference affects Quran Reading and Quran Text pages.": "Bu tercih Quran Reading ve Quran Text sayfalarını etkiler."
 }

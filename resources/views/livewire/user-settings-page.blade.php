@@ -176,6 +176,29 @@
             </div>
         </div>
 
+        {{-- Arabic Font --}}
+        <div>
+            <div class="usp-meal-divider" style="margin-bottom:12px;">
+                <div class="usp-meal-divider-line"></div>
+                <span class="usp-meal-divider-text"><i class="ti ti-typography" style="font-size:11px;"></i> {{ __('Arabic Font') }}</span>
+                <div class="usp-meal-divider-line"></div>
+            </div>
+            <div class="usp-lang-row">
+                <div class="usp-field">
+                    <label class="usp-label">{{ __('Select Arabic Font') }}</label>
+                    <select wire:model.live="selectedArabicFont" class="usp-select">
+                        @foreach($this->arabicFontOptions as $fontKey => $fontLabel)
+                            <option value="{{ $fontKey }}">{{ $fontLabel }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="usp-lang-hint">
+                    <i class="ti ti-info-circle"></i>
+                    {{ __('This preference affects Quran Reading and Quran Text pages.') }}
+                </div>
+            </div>
+        </div>
+
         {{-- Meal Tercihleri --}}
         <div>
             <div class="usp-meal-divider" style="margin-bottom:12px;">

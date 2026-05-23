@@ -4,8 +4,11 @@
     @keydown.window.left.prevent="document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'SELECT' ? null : $wire.prevAya()"
     @keydown.window.right.prevent="document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'SELECT' ? null : $wire.nextAya()"
     class="qtp"
+    style="--arabic-font-family: {{ $this->arabicFontFamily }};"
 >
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Scheherazade+New:wght@400;700&display=swap');
+
 /* ── Temel ─────────────────────────────────────────── */
 .qtp { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
 
@@ -42,8 +45,35 @@
 
 /* ── Arapça metin ───────────────────────────────────── */
 .qtp-arabic-block { background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 22px 28px; margin-bottom: 16px; }
-.qtp-ar           { direction: rtl; font-family: 'Amiri', serif; font-size: 36px; line-height: 2.1; color: var(--text-dark); text-align: center; }
-.qtp-aya-marker   { display: inline-block; font-family: 'Amiri', serif; font-size: 28px; color: var(--gold); margin-right: 6px; }
+.qtp-ar           {
+    direction: rtl;
+    font-family: var(--arabic-font-family);
+    font-size: 30px;
+    line-height: 2.3;
+    color: var(--text-dark);
+    text-align: right;
+    font-weight: 400;
+    font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.qtp-aya-marker   {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(184,134,11,.5);
+    color: #8a6522;
+    font-family: var(--arabic-font-family);
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 4px;
+    vertical-align: baseline;
+    background: rgba(212,168,67,.1);
+}
 
 /* ── Tercümeler ─────────────────────────────────────── */
 .qtp-translations  { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
@@ -128,7 +158,7 @@
 /* ── Not kelime chip'i ──────────────────────────────── */
 .qtp-note-word-chip  { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .qtp-note-word-label { font-family: 'Cairo', sans-serif; font-size: 10px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 3px; }
-.qtp-note-word-ar    { font-family: 'Amiri', serif; font-size: 26px; direction: rtl; color: var(--teal-dark); background: var(--teal-light); border: 1px solid rgba(45,155,132,.22); border-radius: 10px; padding: 3px 16px; line-height: 1.7; }
+.qtp-note-word-ar    { font-family: var(--arabic-font-family); font-size: 26px; direction: rtl; color: var(--teal-dark); background: var(--teal-light); border: 1px solid rgba(45,155,132,.22); border-radius: 10px; padding: 3px 16px; line-height: 1.7; }
 .qtp-nv-note .qtp-note-word-ar { font-size: 22px; padding: 2px 13px; }
 
 /* ── Arapça blok tıklanabilir ───────────────────────── */
@@ -142,7 +172,7 @@
 
 /* ── Notlar görüntüleyici modal ─────────────────────── */
 .qtp-nv { width: min(640px, 100%); }
-.qtp-nv-arabic { padding: 14px 22px; background: var(--cream); border-bottom: 1px solid var(--border); direction: rtl; font-family: 'Amiri', serif; font-size: 22px; line-height: 1.9; color: var(--text-dark); text-align: center; }
+.qtp-nv-arabic { padding: 14px 22px; background: var(--cream); border-bottom: 1px solid var(--border); direction: rtl; font-family: var(--arabic-font-family); font-size: 24px; line-height: 2; color: var(--text-dark); text-align: right; font-feature-settings: "liga" 1, "calt" 1, "kern" 1; text-rendering: optimizeLegibility; }
 .qtp-nv-arabic-marker { color: var(--gold); }
 .qtp-nv-list { padding: 16px 22px; display: flex; flex-direction: column; gap: 10px; max-height: 52vh; overflow-y: auto; }
 .qtp-nv-note { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: var(--gold-pale); }
@@ -166,7 +196,7 @@
     .qtp-selects-row { flex-direction: column; }
     .qtp-nav-row    { flex-direction: column; align-items: stretch; }
     .qtp-aya-nav    { justify-content: center; }
-    .qtp-ar         { font-size: 28px; }
+    .qtp-ar         { font-size: 24px; line-height: 2.15; }
     .qtp-notes-top  { flex-direction: column; }
 }
 </style>
@@ -334,7 +364,7 @@
                         @foreach ($this->currentWords as $word)
                             <tr>
                                 <td style="color:var(--text-light);font-size:12px;">{{ $word->position }}</td>
-                                <td dir="rtl" style="font-family:'Amiri',serif; font-size: 20px; text-align:right;">{{ $word->text }}</td>
+                                <td dir="rtl" style="font-family:var(--arabic-font-family); font-size: 20px; text-align:right;">{{ $word->text }}</td>
                                 <td style="color:var(--text-mid);">{{ $word->simple }}</td>
                                 @php
                                     $hasTr = ! empty($word->translation_tr);

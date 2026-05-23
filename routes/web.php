@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function (): void {
-    Route::get('/giris',  [LoginController::class, 'create'])->name('login');
-    Route::post('/giris', [LoginController::class, 'store'])->name('login.store');
+    Route::get('/login',  [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 });
 
-Route::post('/cikis', [LoginController::class, 'destroy'])->middleware('auth')->name('logout');
+Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth')->name('logout');
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -29,16 +29,29 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:user|super_admin'])->group(function (): void {
     Route::view('/dashboard', 'dashboard.user')->name('user.dashboard');
-    Route::view('/kuran-okuma', 'quran.read')->name('user.quran-read');
-    Route::view('/kuran-metin', 'quran.text')->name('user.quran-text');
-    Route::view('/kuran-notlar', 'quran.notes-range')->name('user.quran-notes-range');
-    Route::view('/paylasimlarim', 'shares.index')->name('user.shares');
-    Route::view('/istatistikler', 'statistics.index')->name('user.statistics');
-    Route::view('/ayarlar', 'settings.index')->name('user.settings');
+    Route::view('/quran-reading', 'quran.read')->name('user.quran-read');
+    Route::view('/quran-text', 'quran.text')->name('user.quran-text');
+    Route::view('/quran-notes', 'quran.notes-range')->name('user.quran-notes-range');
+    Route::view('/my-shares', 'shares.index')->name('user.shares');
+    Route::view('/statistics', 'statistics.index')->name('user.statistics');
+    Route::view('/settings', 'settings.index')->name('user.settings');
 });
 
-Route::get('/dil/{locale}', [LocaleController::class, 'switch'])
+Route::get('/locale/{locale}', [LocaleController::class, 'switch'])
     ->name('locale.switch')
     ->where('locale', 'tr|en');
 
-Route::get('/paylas/notlar/{token}', [NoteShareController::class, 'show'])->name('notes.share.show');
+Route::get('/share/notes/{token}', [NoteShareController::class, 'show'])->name('notes.share.show');
+
+// Backward compatibility redirects for old Turkish slugs.
+Route::redirect('/giris', '/login', 301);
+Route::redirect('/kuran-okuma', '/quran-reading', 301);
+Route::redirect('/kuran-metin', '/quran-text', 301);
+Route::redirect('/kuran-notlar', '/quran-notes', 301);
+Route::redirect('/paylasimlarim', '/my-shares', 301);
+Route::redirect('/istatistikler', '/statistics', 301);
+Route::redirect('/ayarlar', '/settings', 301);
+Route::redirect('/paylas/notlar', '/share/notes', 301);
+Route::get('/paylas/notlar/{token}', function (string $token) {
+    return redirect()->route('notes.share.show', ['token' => $token], 301);
+});

@@ -62,7 +62,7 @@
   /* Arabic verse */
   .db-hero-body { padding: 1.25rem 1.5rem 0.5rem; }
   .db-arabic {
-    font-family: 'Amiri', serif;
+    font-family: 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', 'Times New Roman', serif;
     font-size: 28px;
     line-height: 2.1;
     text-align: right;

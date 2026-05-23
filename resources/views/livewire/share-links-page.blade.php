@@ -1,7 +1,7 @@
 <div class="sl-wrap" x-data="{
     copied: null,
     copyUrl(token, id) {
-        const url = '{{ url('/paylas/notlar/') }}/' + token;
+        const url = '{{ url('/share/notes/') }}/' + token;
         navigator.clipboard.writeText(url).then(() => {
             this.copied = id;
             setTimeout(() => this.copied = null, 2000);

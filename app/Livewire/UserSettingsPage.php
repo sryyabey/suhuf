@@ -11,6 +11,7 @@ use Livewire\Component;
 class UserSettingsPage extends Component
 {
     public ?string $selectedLanguage = null;
+    public string $selectedArabicFont = 'amiri';
 
     public array $selectedMealKeys = [];
 
@@ -21,6 +22,7 @@ class UserSettingsPage extends Component
         $defaultLanguage = VerseTranslation::query()->orderBy('language')->value('language') ?? 'tr';
 
         $this->selectedLanguage = $user?->setting?->preferred_language ?? $defaultLanguage;
+        $this->selectedArabicFont = $user?->setting?->preferred_arabic_font ?? 'amiri';
 
         $this->loadSelectedMeals();
     }
@@ -67,6 +69,11 @@ class UserSettingsPage extends Component
             return;
         }
 
+        $allowedFontKeys = array_keys($this->arabicFontOptions);
+        if (! in_array($this->selectedArabicFont, $allowedFontKeys, true)) {
+            $this->selectedArabicFont = 'amiri';
+        }
+
         $allowedMealKeys = VerseTranslation::query()
             ->where('language', $this->selectedLanguage)
             ->whereIn('meal_key', $this->selectedMealKeys)
@@ -77,7 +84,10 @@ class UserSettingsPage extends Component
 
         UserSetting::query()->updateOrCreate(
             ['user_id' => $user->id],
-            ['preferred_language' => $this->selectedLanguage]
+            [
+                'preferred_language' => $this->selectedLanguage,
+                'preferred_arabic_font' => $this->selectedArabicFont,
+            ]
         );
 
         UserMealPreference::query()
@@ -129,6 +139,15 @@ class UserSettingsPage extends Component
     public function render(): View
     {
         return view('livewire.user-settings-page');
+    }
+
+    public function getArabicFontOptionsProperty(): array
+    {
+        return [
+            'amiri' => 'Amiri',
+            'noto_naskh' => 'Noto Naskh Arabic',
+            'scheherazade' => 'Scheherazade New',
+        ];
     }
 
     private function loadSelectedMeals(): void

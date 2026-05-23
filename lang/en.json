@@ -51,6 +51,8 @@
     "Create Free Account": "Create Free Account",
     "Sura": "Sura",
     "Verse": "Verse",
+    "Word": "Word",
+    "Letter": "Letter",
     "Word Analysis": "Word Analysis",
     "Personal Note": "Personal Note",
     "Everything you need in one place": "Everything you need in one place",
@@ -292,5 +294,8 @@
     "All meals are selected.": "All meals are selected.",
     "Your selections are applied temporarily. To make changes permanent, click": "Your selections are applied temporarily. To make changes permanent, click",
     "Save Preferences": "Save Preferences",
-    "Preferences saved successfully!": "Preferences saved successfully!"
+    "Preferences saved successfully!": "Preferences saved successfully!",
+    "Arabic Font": "Arabic Font",
+    "Select Arabic Font": "Select Arabic Font",
+    "This preference affects Quran Reading and Quran Text pages.": "This preference affects Quran Reading and Quran Text pages."
 }

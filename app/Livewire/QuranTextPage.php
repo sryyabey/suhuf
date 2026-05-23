@@ -47,6 +47,7 @@ class QuranTextPage extends Component
     public ?string $selectedLanguage = null;
 
     public ?string $selectedMeal = null;
+    public string $arabicFontKey = 'amiri';
 
     public array $preferredMealKeys = [];
 
@@ -110,6 +111,7 @@ class QuranTextPage extends Component
             ->value('language') ?? 'tr';
 
         $this->selectedLanguage = $setting?->preferred_language ?? $defaultLanguage;
+        $this->arabicFontKey = $setting?->preferred_arabic_font ?? 'amiri';
 
         $this->loadPreferredMealsForLanguage();
         $this->syncSelectedMeal();
@@ -558,6 +560,15 @@ class QuranTextPage extends Component
     public function render(): View
     {
         return view('livewire.quran-text-page');
+    }
+
+    public function getArabicFontFamilyProperty(): string
+    {
+        return match ($this->arabicFontKey) {
+            'noto_naskh' => "'Noto Naskh Arabic', 'Amiri', 'Scheherazade New', 'Times New Roman', serif",
+            'scheherazade' => "'Scheherazade New', 'Amiri', 'Noto Naskh Arabic', 'Times New Roman', serif",
+            default => "'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', 'Times New Roman', serif",
+        };
     }
 
     private function syncAya(): void
