@@ -209,6 +209,11 @@ class QuranNotesRangePage extends Component
         return self::$SURA_NAMES[$sura] ?? ('Sure ' . $sura);
     }
 
+    public static function getSuraNames(): array
+    {
+        return self::$SURA_NAMES;
+    }
+
     /* ── Computed: select listeleri ───────────────────── */
 
     public function getSurasProperty(): Collection

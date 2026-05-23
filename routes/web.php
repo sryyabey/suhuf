@@ -28,6 +28,7 @@ Route::middleware(['auth', 'role:user|super_admin'])->group(function (): void {
     Route::view('/kuran-okuma', 'quran.read')->name('user.quran-read');
     Route::view('/kuran-metin', 'quran.text')->name('user.quran-text');
     Route::view('/kuran-notlar', 'quran.notes-range')->name('user.quran-notes-range');
+    Route::view('/paylasimlarim', 'shares.index')->name('user.shares');
     Route::view('/ayarlar', 'settings.index')->name('user.settings');
 });
 

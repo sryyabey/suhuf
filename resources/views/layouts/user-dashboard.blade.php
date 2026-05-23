@@ -214,6 +214,7 @@
         <a class="nav-item {{ request()->routeIs('user.quran-read') ? 'active' : '' }}" href="{{ route('user.quran-read') }}"><i class="ti ti-book-2" aria-hidden="true"></i> Kur'an Okuma</a>
         <a class="nav-item {{ request()->routeIs('user.quran-text') ? 'active' : '' }}" href="{{ route('user.quran-text') }}"><i class="ti ti-book" aria-hidden="true"></i> Kur'an Metni</a>
         <a class="nav-item {{ request()->routeIs('user.quran-notes-range') ? 'active' : '' }}" href="{{ route('user.quran-notes-range') }}"><i class="ti ti-notebook" aria-hidden="true"></i> Not Araştırması</a>
+        <a class="nav-item {{ request()->routeIs('user.shares') ? 'active' : '' }}" href="{{ route('user.shares') }}"><i class="ti ti-link" aria-hidden="true"></i> Paylaşımlarım</a>
         <a class="nav-item {{ request()->routeIs('user.settings') ? 'active' : '' }}" href="{{ route('user.settings') }}"><i class="ti ti-settings" aria-hidden="true"></i> Ayarlar</a>
       </div>
     </div>
