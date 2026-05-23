@@ -118,7 +118,63 @@
       .app { grid-template-columns: 1fr; grid-template-rows: var(--topbar-h) auto auto; min-height: 100vh; height: auto; }
       .sidebar { order: 2; }
       .main { order: 3; }
-      .search-box { width: 160px; }
+      .topbar { padding: 0 .9rem; }
+      .topbar-logo { gap: 9px; }
+      .logo-emblem { width: 34px; height: 34px; border-radius: 8px; }
+      .logo-emblem svg { width: 18px; height: 18px; }
+      .logo-text { font-size: 14px; }
+      .logo-sub { display: none; }
+      .topbar-right { gap: .55rem; }
+      .search-box { width: 150px; padding: 6px 10px; }
+
+      .sidebar { border-right: 0; border-bottom: 1px solid var(--border-strong); }
+      .sidebar-scroll { padding: .65rem .65rem .75rem; }
+      .nav-section-label { display: none; }
+      .nav-section { margin: 0; }
+      .nav-item {
+        border-left: 0;
+        border-radius: 10px;
+        margin-bottom: 4px;
+        padding: 10px 11px;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        border-left-color: transparent;
+      }
+
+      .sidebar-footer { padding: .45rem .65rem .8rem; }
+      .main { padding: 1rem .75rem; gap: 1rem; }
+    }
+
+    @media (max-width: 640px) {
+      :root { --topbar-h: 58px; }
+      .topbar { padding: 0 .65rem; }
+      .logo-text { font-size: 12.5px; max-width: 145px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .search-box { display: none; }
+      .topbar-icon-btn,
+      .avatar { width: 32px; height: 32px; }
+      .topbar-icon-btn { font-size: 15px; }
+
+      .sidebar-scroll {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 6px;
+        padding: .55rem .55rem .55rem;
+        scrollbar-width: thin;
+      }
+      .nav-section { display: contents; }
+      .nav-item {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+        font-size: 12.5px;
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .nav-item i { font-size: 15px; }
+      .sidebar-footer { display: none; }
+      .main { padding: .75rem .55rem; }
     }
   </style>
 </head>
