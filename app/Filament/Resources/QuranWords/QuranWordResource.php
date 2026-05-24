@@ -9,6 +9,7 @@ use App\Filament\Resources\QuranWords\Schemas\QuranWordForm;
 use App\Filament\Resources\QuranWords\Tables\QuranWordsTable;
 use App\Models\QuranWord;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -18,7 +19,11 @@ class QuranWordResource extends Resource
 {
     protected static ?string $model = QuranWord::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookOpen;
+
+    protected static UnitEnum|string|null $navigationGroup = "Kur'an İçeriği";
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

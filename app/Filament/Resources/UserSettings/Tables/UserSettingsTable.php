@@ -1,34 +1,36 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\UserSettings\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use STS\FilamentImpersonate\Actions\Impersonate;
 
-class UsersTable
+class UserSettingsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('user.name')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
+                TextColumn::make('preferred_language')
                     ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
+                TextColumn::make('preferred_arabic_font')
+                    ->searchable(),
+                TextColumn::make('preferred_tafsir_id')
+                    ->numeric()
                     ->sortable(),
-                TextColumn::make('roles.name')
-                    ->badge()
-                    ->separator(', ')
-                    ->label('Roles')
+                TextColumn::make('preferred_tafsir_name')
                     ->searchable(),
+                TextColumn::make('last_read_sura')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('last_read_aya')
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -41,13 +43,7 @@ class UsersTable
             ->filters([
                 //
             ])
-            ->actions([
-                ViewAction::make(),
-                EditAction::make(),
-                Impersonate::make(),
-            ])
             ->recordActions([
-                ViewAction::make(),
                 EditAction::make(),
             ])
             ->toolbarActions([

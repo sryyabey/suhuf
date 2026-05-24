@@ -1,33 +1,28 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\VerseTranslations\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use STS\FilamentImpersonate\Actions\Impersonate;
 
-class UsersTable
+class VerseTranslationsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
+                TextColumn::make('sura')
+                    ->numeric()
                     ->sortable(),
-                TextColumn::make('roles.name')
-                    ->badge()
-                    ->separator(', ')
-                    ->label('Roles')
+                TextColumn::make('aya')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('meal_key')
+                    ->searchable(),
+                TextColumn::make('language')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -41,13 +36,7 @@ class UsersTable
             ->filters([
                 //
             ])
-            ->actions([
-                ViewAction::make(),
-                EditAction::make(),
-                Impersonate::make(),
-            ])
             ->recordActions([
-                ViewAction::make(),
                 EditAction::make(),
             ])
             ->toolbarActions([
