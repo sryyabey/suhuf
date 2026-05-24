@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthTokenController;
+use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\SubscriptionController;
 use Illuminate\Http\Request;
@@ -32,4 +33,10 @@ Route::middleware('auth:sanctum')->prefix('subscription')->group(function () {
     Route::get('/', [SubscriptionController::class, 'show']);
     Route::post('/activate', [SubscriptionController::class, 'activate']);
     Route::post('/cancel', [SubscriptionController::class, 'cancel']);
+});
+
+Route::middleware(['auth:sanctum', 'subscription.active'])->prefix('backups')->group(function () {
+    Route::get('/', [BackupController::class, 'index']);
+    Route::post('/', [BackupController::class, 'store']);
+    Route::post('/{backup}/restore', [BackupController::class, 'restore']);
 });
