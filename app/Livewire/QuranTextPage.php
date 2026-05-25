@@ -15,29 +15,120 @@ use Livewire\Component;
 class QuranTextPage extends Component
 {
     protected static array $SURA_NAMES = [
-        1 => 'Fâtiha', 2 => 'Bakara', 3 => 'Âl-i İmrân', 4 => 'Nisâ', 5 => 'Mâide',
-        6 => 'Enâm', 7 => 'Arâf', 8 => 'Enfâl', 9 => 'Tevbe', 10 => 'Yûnus',
-        11 => 'Hûd', 12 => 'Yûsuf', 13 => 'Raʿd', 14 => 'İbrâhim', 15 => 'Hicr',
-        16 => 'Nahl', 17 => 'İsrâ', 18 => 'Kehf', 19 => 'Meryem', 20 => 'Tâhâ',
-        21 => 'Enbiyâ', 22 => 'Hac', 23 => 'Mü\'minûn', 24 => 'Nûr', 25 => 'Furkân',
-        26 => 'Şuarâ', 27 => 'Neml', 28 => 'Kasas', 29 => 'Ankebût', 30 => 'Rûm',
-        31 => 'Lokmân', 32 => 'Secde', 33 => 'Ahzâb', 34 => 'Sebe\'', 35 => 'Fâtır',
-        36 => 'Yâsîn', 37 => 'Sâffât', 38 => 'Sâd', 39 => 'Zümer', 40 => 'Mü\'min',
-        41 => 'Fussilet', 42 => 'Şûrâ', 43 => 'Zuhruf', 44 => 'Duhân', 45 => 'Câsiye',
-        46 => 'Ahkâf', 47 => 'Muhammed', 48 => 'Feth', 49 => 'Hucurât', 50 => 'Kâf',
-        51 => 'Zâriyât', 52 => 'Tûr', 53 => 'Necm', 54 => 'Kamer', 55 => 'Rahmân',
-        56 => 'Vâkıa', 57 => 'Hadîd', 58 => 'Mücâdele', 59 => 'Haşr', 60 => 'Mümtehine',
-        61 => 'Saf', 62 => 'Cum\'a', 63 => 'Münâfikûn', 64 => 'Teğâbün', 65 => 'Talâk',
-        66 => 'Tahrîm', 67 => 'Mülk', 68 => 'Kalem', 69 => 'Hâkka', 70 => 'Meâric',
-        71 => 'Nûh', 72 => 'Cin', 73 => 'Müzzemmil', 74 => 'Müddessir', 75 => 'Kıyâme',
-        76 => 'İnsân', 77 => 'Mürselât', 78 => 'Nebe\'', 79 => 'Nâziât', 80 => 'Abese',
-        81 => 'Tekvîr', 82 => 'İnfitâr', 83 => 'Mutaffifîn', 84 => 'İnşikâk', 85 => 'Bürûc',
-        86 => 'Târık', 87 => 'A\'lâ', 88 => 'Ğâşiye', 89 => 'Fecr', 90 => 'Beled',
-        91 => 'Şems', 92 => 'Leyl', 93 => 'Duhâ', 94 => 'İnşirâh', 95 => 'Tîn',
-        96 => 'Alak', 97 => 'Kadr', 98 => 'Beyyine', 99 => 'Zilzâl', 100 => 'Âdiyât',
-        101 => 'Kâria', 102 => 'Tekâsür', 103 => 'Asr', 104 => 'Hümeze', 105 => 'Fîl',
-        106 => 'Kureyş', 107 => 'Mâûn', 108 => 'Kevser', 109 => 'Kâfirûn', 110 => 'Nasr',
-        111 => 'Tebbet', 112 => 'İhlâs', 113 => 'Felak', 114 => 'Nâs',
+        1 => 'Fâtiha',
+        2 => 'Bakara',
+        3 => 'Âl-i İmrân',
+        4 => 'Nisâ',
+        5 => 'Mâide',
+        6 => 'Enâm',
+        7 => 'Arâf',
+        8 => 'Enfâl',
+        9 => 'Tevbe',
+        10 => 'Yûnus',
+        11 => 'Hûd',
+        12 => 'Yûsuf',
+        13 => 'Raʿd',
+        14 => 'İbrâhim',
+        15 => 'Hicr',
+        16 => 'Nahl',
+        17 => 'İsrâ',
+        18 => 'Kehf',
+        19 => 'Meryem',
+        20 => 'Tâhâ',
+        21 => 'Enbiyâ',
+        22 => 'Hac',
+        23 => 'Mü\'minûn',
+        24 => 'Nûr',
+        25 => 'Furkân',
+        26 => 'Şuarâ',
+        27 => 'Neml',
+        28 => 'Kasas',
+        29 => 'Ankebût',
+        30 => 'Rûm',
+        31 => 'Lokmân',
+        32 => 'Secde',
+        33 => 'Ahzâb',
+        34 => 'Sebe\'',
+        35 => 'Fâtır',
+        36 => 'Yâsîn',
+        37 => 'Sâffât',
+        38 => 'Sâd',
+        39 => 'Zümer',
+        40 => 'Mü\'min',
+        41 => 'Fussilet',
+        42 => 'Şûrâ',
+        43 => 'Zuhruf',
+        44 => 'Duhân',
+        45 => 'Câsiye',
+        46 => 'Ahkâf',
+        47 => 'Muhammed',
+        48 => 'Feth',
+        49 => 'Hucurât',
+        50 => 'Kâf',
+        51 => 'Zâriyât',
+        52 => 'Tûr',
+        53 => 'Necm',
+        54 => 'Kamer',
+        55 => 'Rahmân',
+        56 => 'Vâkıa',
+        57 => 'Hadîd',
+        58 => 'Mücâdele',
+        59 => 'Haşr',
+        60 => 'Mümtehine',
+        61 => 'Saf',
+        62 => 'Cum\'a',
+        63 => 'Münâfikûn',
+        64 => 'Teğâbün',
+        65 => 'Talâk',
+        66 => 'Tahrîm',
+        67 => 'Mülk',
+        68 => 'Kalem',
+        69 => 'Hâkka',
+        70 => 'Meâric',
+        71 => 'Nûh',
+        72 => 'Cin',
+        73 => 'Müzzemmil',
+        74 => 'Müddessir',
+        75 => 'Kıyâme',
+        76 => 'İnsân',
+        77 => 'Mürselât',
+        78 => 'Nebe\'',
+        79 => 'Nâziât',
+        80 => 'Abese',
+        81 => 'Tekvîr',
+        82 => 'İnfitâr',
+        83 => 'Mutaffifîn',
+        84 => 'İnşikâk',
+        85 => 'Bürûc',
+        86 => 'Târık',
+        87 => 'A\'lâ',
+        88 => 'Ğâşiye',
+        89 => 'Fecr',
+        90 => 'Beled',
+        91 => 'Şems',
+        92 => 'Leyl',
+        93 => 'Duhâ',
+        94 => 'İnşirâh',
+        95 => 'Tîn',
+        96 => 'Alak',
+        97 => 'Kadr',
+        98 => 'Beyyine',
+        99 => 'Zilzâl',
+        100 => 'Âdiyât',
+        101 => 'Kâria',
+        102 => 'Tekâsür',
+        103 => 'Asr',
+        104 => 'Hümeze',
+        105 => 'Fîl',
+        106 => 'Kureyş',
+        107 => 'Mâûn',
+        108 => 'Kevser',
+        109 => 'Kâfirûn',
+        110 => 'Nasr',
+        111 => 'Tebbet',
+        112 => 'İhlâs',
+        113 => 'Felak',
+        114 => 'Nâs',
     ];
 
     public ?int $selectedSura = null;
@@ -71,35 +162,35 @@ class QuranTextPage extends Component
 
     public function mount(): void
     {
-        $user    = auth()->user();
+        $user = auth()->user();
         $setting = $user?->setting;
 
         // URL params take priority (e.g. from global search results)
         $suraParam = request()->query('sura');
-        $ayaParam  = request()->query('aya');
+        $ayaParam = request()->query('aya');
 
         if (
             $suraParam && $ayaParam &&
             QuranWord::query()->where('sura', (int) $suraParam)->where('aya', (int) $ayaParam)->exists()
         ) {
             $this->selectedSura = (int) $suraParam;
-            $this->selectedAya  = (int) $ayaParam;
-            $this->resumed      = false;
+            $this->selectedAya = (int) $ayaParam;
+            $this->resumed = false;
         } elseif ($suraParam && QuranWord::query()->where('sura', (int) $suraParam)->exists()) {
             $this->selectedSura = (int) $suraParam;
             $this->syncAya();
             $this->resumed = false;
         } else {
             $lastSura = $setting?->last_read_sura;
-            $lastAya  = $setting?->last_read_aya;
+            $lastAya = $setting?->last_read_aya;
 
             if (
                 $lastSura && $lastAya &&
                 QuranWord::query()->where('sura', $lastSura)->where('aya', $lastAya)->exists()
             ) {
                 $this->selectedSura = $lastSura;
-                $this->selectedAya  = $lastAya;
-                $this->resumed      = true;
+                $this->selectedAya = $lastAya;
+                $this->resumed = true;
             } else {
                 $this->selectedSura = QuranWord::query()->orderBy('sura')->value('sura');
                 $this->syncAya();
@@ -120,7 +211,7 @@ class QuranTextPage extends Component
 
     public function prevAya(): void
     {
-        if (! $this->selectedSura || ! $this->selectedAya) {
+        if (!$this->selectedSura || !$this->selectedAya) {
             return;
         }
 
@@ -156,7 +247,7 @@ class QuranTextPage extends Component
 
     public function nextAya(): void
     {
-        if (! $this->selectedSura || ! $this->selectedAya) {
+        if (!$this->selectedSura || !$this->selectedAya) {
             return;
         }
 
@@ -209,7 +300,7 @@ class QuranTextPage extends Component
     {
         $user = auth()->user();
 
-        if (! $user || ! $this->selectedLanguage) {
+        if (!$user || !$this->selectedLanguage) {
             return;
         }
 
@@ -246,7 +337,7 @@ class QuranTextPage extends Component
         ]);
 
         $user = auth()->user();
-        if (! $user) {
+        if (!$user) {
             return;
         }
 
@@ -262,7 +353,7 @@ class QuranTextPage extends Component
             ['name' => $name]
         );
 
-        if (! in_array($tag->id, $this->selectedTagIds, true)) {
+        if (!in_array($tag->id, $this->selectedTagIds, true)) {
             $this->selectedTagIds[] = $tag->id;
         }
 
@@ -280,7 +371,7 @@ class QuranTextPage extends Component
         ]);
 
         $user = auth()->user();
-        if (! $user || ! $this->selectedSura || ! $this->selectedAya) {
+        if (!$user || !$this->selectedSura || !$this->selectedAya) {
             return;
         }
 
@@ -309,7 +400,7 @@ class QuranTextPage extends Component
     public function editNote(int $noteId): void
     {
         $note = $this->findUserNote($noteId);
-        if (! $note) {
+        if (!$note) {
             return;
         }
 
@@ -323,7 +414,7 @@ class QuranTextPage extends Component
 
     public function updateNote(): void
     {
-        if (! $this->editingNoteId) {
+        if (!$this->editingNoteId) {
             return;
         }
 
@@ -338,7 +429,7 @@ class QuranTextPage extends Component
         $note = $this->findUserNote($this->editingNoteId);
         $user = auth()->user();
 
-        if (! $note || ! $user) {
+        if (!$note || !$user) {
             return;
         }
 
@@ -364,7 +455,7 @@ class QuranTextPage extends Component
     public function deleteNote(int $noteId): void
     {
         $note = $this->findUserNote($noteId);
-        if (! $note) {
+        if (!$note) {
             return;
         }
 
@@ -404,8 +495,8 @@ class QuranTextPage extends Component
     public function getSuraOptionsProperty(): array
     {
         return $this->suras
-            ->map(fn ($s) => (int) $s)
-            ->map(fn (int $s): array => [
+            ->map(fn($s) => (int) $s)
+            ->map(fn(int $s): array => [
                 'value' => $s,
                 'label' => __('sura_option', [
                     'number' => $s,
@@ -418,7 +509,7 @@ class QuranTextPage extends Component
 
     public function getAyasProperty()
     {
-        if (! $this->selectedSura) {
+        if (!$this->selectedSura) {
             return collect();
         }
 
@@ -438,7 +529,7 @@ class QuranTextPage extends Component
             ->distinct()
             ->orderBy('meal_key');
 
-        if (! empty($this->preferredMealKeys)) {
+        if (!empty($this->preferredMealKeys)) {
             $query->whereIn('meal_key', $this->preferredMealKeys);
         }
 
@@ -473,7 +564,7 @@ class QuranTextPage extends Component
     {
         $user = auth()->user();
 
-        if (! $user) {
+        if (!$user) {
             return collect();
         }
 
@@ -487,7 +578,7 @@ class QuranTextPage extends Component
     {
         $user = auth()->user();
 
-        if (! $user || ! $this->selectedSura || ! $this->selectedAya) {
+        if (!$user || !$this->selectedSura || !$this->selectedAya) {
             return collect();
         }
 
@@ -496,14 +587,14 @@ class QuranTextPage extends Component
             ->where('user_id', $user->id)
             ->where('sura', $this->selectedSura)
             ->where('aya', $this->selectedAya)
-            ->when($this->filterTagId, fn ($q) => $q->whereHas('tags', fn ($qq) => $qq->where('research_tags.id', $this->filterTagId)))
+            ->when($this->filterTagId, fn($q) => $q->whereHas('tags', fn($qq) => $qq->where('research_tags.id', $this->filterTagId)))
             ->orderByDesc('updated_at')
             ->get();
     }
 
     public function getCurrentWordsProperty()
     {
-        if (! $this->selectedSura || ! $this->selectedAya) {
+        if (!$this->selectedSura || !$this->selectedAya) {
             return collect();
         }
 
@@ -531,7 +622,7 @@ class QuranTextPage extends Component
 
     public function getCurrentTranslationProperty(): string
     {
-        if (! $this->selectedSura || ! $this->selectedAya || ! $this->selectedMeal || ! $this->selectedLanguage) {
+        if (!$this->selectedSura || !$this->selectedAya || !$this->selectedMeal || !$this->selectedLanguage) {
             return '';
         }
 
@@ -545,12 +636,12 @@ class QuranTextPage extends Component
 
     public function getCurrentPreferredTranslationsProperty()
     {
-        if (! $this->selectedSura || ! $this->selectedAya || ! $this->selectedLanguage) {
+        if (!$this->selectedSura || !$this->selectedAya || !$this->selectedLanguage) {
             return collect();
         }
 
         if (empty($this->preferredMealKeys)) {
-            if (! $this->selectedMeal) {
+            if (!$this->selectedMeal) {
                 return collect();
             }
 
@@ -605,7 +696,7 @@ class QuranTextPage extends Component
             return;
         }
 
-        if (! $this->selectedMeal || ! $meals->contains($this->selectedMeal)) {
+        if (!$this->selectedMeal || !$meals->contains($this->selectedMeal)) {
             $this->selectedMeal = (string) $meals->first();
         }
     }
@@ -614,7 +705,7 @@ class QuranTextPage extends Component
     {
         $user = auth()->user();
 
-        if (! $user || ! $this->selectedLanguage) {
+        if (!$user || !$this->selectedLanguage) {
             $this->preferredMealKeys = [];
             return;
         }
@@ -631,7 +722,7 @@ class QuranTextPage extends Component
     {
         $user = auth()->user();
 
-        if (! $user) {
+        if (!$user) {
             return null;
         }
 
@@ -645,7 +736,7 @@ class QuranTextPage extends Component
     {
         $user = auth()->user();
 
-        if (! $user || ! $this->selectedSura || ! $this->selectedAya) {
+        if (!$user || !$this->selectedSura || !$this->selectedAya) {
             return;
         }
 
@@ -653,7 +744,7 @@ class QuranTextPage extends Component
             ['user_id' => $user->id],
             [
                 'last_read_sura' => $this->selectedSura,
-                'last_read_aya'  => $this->selectedAya,
+                'last_read_aya' => $this->selectedAya,
             ]
         );
     }
