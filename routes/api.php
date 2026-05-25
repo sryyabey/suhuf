@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthTokenController;
 use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\QuranDatabaseController;
 use App\Http\Controllers\Api\SubscriptionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,4 +40,8 @@ Route::middleware(['auth:sanctum', 'subscription.active'])->prefix('backups')->g
     Route::get('/', [BackupController::class, 'index']);
     Route::post('/', [BackupController::class, 'store']);
     Route::post('/{backup}/restore', [BackupController::class, 'restore']);
+});
+
+Route::middleware('auth:sanctum')->prefix('quran')->group(function () {
+    Route::get('/db/download', [QuranDatabaseController::class, 'download']);
 });
