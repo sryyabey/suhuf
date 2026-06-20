@@ -1,0 +1,18 @@
+[
+    {
+        "meal_key": "en.sahih",
+        "language": "en",
+        "rows": 1,
+        "file": "en.sahih.zip",
+        "path": "storage/data/verse_translations/en.sahih.zip",
+        "size_mb": 0
+    },
+    {
+        "meal_key": "tr.diyanet",
+        "language": "tr",
+        "rows": 2,
+        "file": "tr.diyanet.zip",
+        "path": "storage/data/verse_translations/tr.diyanet.zip",
+        "size_mb": 0
+    }
+]

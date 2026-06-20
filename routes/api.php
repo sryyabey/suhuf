@@ -49,7 +49,9 @@ Route::middleware('auth:sanctum')->prefix('quran')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->prefix('datasets')->group(function () {
-    Route::get('/verse-translations/download', [VerseTranslationsDatasetController::class, 'download']);
+    Route::get('/verse-translations/meal-keys', [VerseTranslationsDatasetController::class, 'mealKeys']);
+    Route::get('/verse-translations', [VerseTranslationsDatasetController::class, 'index']);
+    Route::get('/verse-translations/{mealKey}/download', [VerseTranslationsDatasetController::class, 'download']);
 });
 
 Route::middleware(['auth:sanctum', 'subscription.active'])->prefix('sync')->group(function () {
