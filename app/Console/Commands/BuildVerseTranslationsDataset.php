@@ -11,13 +11,14 @@ class BuildVerseTranslationsDataset extends Command
 {
     protected $signature = 'dataset:verse-translations:build
         {--language=* : Only include the given language codes}
-        {--meal-key=* : Only include the given meal keys}';
+        {--meal-key=* : Only include the given meal keys}
+        {--directory= : Output directory relative to project root}';
 
     protected $description = 'Build meal_key grouped zipped verse_translations datasets for mobile download';
 
     public function handle(): int
     {
-        $directory = storage_path('data/verse_translations');
+        $directory = $this->resolveOutputDirectory();
 
         if (! is_dir($directory) && ! mkdir($directory, 0777, true) && ! is_dir($directory)) {
             $this->error('Could not create verse translations dataset directory.');
@@ -153,5 +154,18 @@ class BuildVerseTranslationsDataset extends Command
             ->toString();
 
         return $slug === '' ? 'meal' : $slug;
+    }
+
+    protected function resolveOutputDirectory(): string
+    {
+        $directory = $this->option('directory');
+
+        if (blank($directory)) {
+            return storage_path('data/verse_translations');
+        }
+
+        return str_starts_with($directory, '/')
+            ? $directory
+            : base_path($directory);
     }
 }

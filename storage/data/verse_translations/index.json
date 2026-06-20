@@ -1,18 +1,922 @@
 [
     {
+        "meal_key": "am.sadiq",
+        "language": "tr",
+        "rows": 6122,
+        "file": "am.sadiq.zip",
+        "path": "storage/data/verse_translations/am.sadiq.zip",
+        "size_mb": 0.32
+    },
+    {
+        "meal_key": "ar.jalalayn",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ar.jalalayn.zip",
+        "path": "storage/data/verse_translations/ar.jalalayn.zip",
+        "size_mb": 0.53
+    },
+    {
+        "meal_key": "ar.muyassar",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ar.muyassar.zip",
+        "path": "storage/data/verse_translations/ar.muyassar.zip",
+        "size_mb": 0.53
+    },
+    {
+        "meal_key": "az.mammadaliyev",
+        "language": "tr",
+        "rows": 6122,
+        "file": "az.mammadaliyev.zip",
+        "path": "storage/data/verse_translations/az.mammadaliyev.zip",
+        "size_mb": 0.41
+    },
+    {
+        "meal_key": "az.musayev",
+        "language": "tr",
+        "rows": 6122,
+        "file": "az.musayev.zip",
+        "path": "storage/data/verse_translations/az.musayev.zip",
+        "size_mb": 0.28
+    },
+    {
+        "meal_key": "ber.mensur",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ber.mensur.zip",
+        "path": "storage/data/verse_translations/ber.mensur.zip",
+        "size_mb": 0.23
+    },
+    {
+        "meal_key": "bg.theophanov",
+        "language": "tr",
+        "rows": 6122,
+        "file": "bg.theophanov.zip",
+        "path": "storage/data/verse_translations/bg.theophanov.zip",
+        "size_mb": 0.29
+    },
+    {
+        "meal_key": "bn.bengali",
+        "language": "tr",
+        "rows": 6122,
+        "file": "bn.bengali.zip",
+        "path": "storage/data/verse_translations/bn.bengali.zip",
+        "size_mb": 0.35
+    },
+    {
+        "meal_key": "bn.hoque",
+        "language": "tr",
+        "rows": 6122,
+        "file": "bn.hoque.zip",
+        "path": "storage/data/verse_translations/bn.hoque.zip",
+        "size_mb": 0.37
+    },
+    {
+        "meal_key": "bs.korkut",
+        "language": "tr",
+        "rows": 6122,
+        "file": "bs.korkut.zip",
+        "path": "storage/data/verse_translations/bs.korkut.zip",
+        "size_mb": 0.27
+    },
+    {
+        "meal_key": "bs.mlivo",
+        "language": "tr",
+        "rows": 6122,
+        "file": "bs.mlivo.zip",
+        "path": "storage/data/verse_translations/bs.mlivo.zip",
+        "size_mb": 0.25
+    },
+    {
+        "meal_key": "cs.hrbek",
+        "language": "tr",
+        "rows": 6122,
+        "file": "cs.hrbek.zip",
+        "path": "storage/data/verse_translations/cs.hrbek.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "cs.nykl",
+        "language": "tr",
+        "rows": 6122,
+        "file": "cs.nykl.zip",
+        "path": "storage/data/verse_translations/cs.nykl.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "de.aburida",
+        "language": "tr",
+        "rows": 6122,
+        "file": "de.aburida.zip",
+        "path": "storage/data/verse_translations/de.aburida.zip",
+        "size_mb": 0.31
+    },
+    {
+        "meal_key": "de.bubenheim",
+        "language": "tr",
+        "rows": 6122,
+        "file": "de.bubenheim.zip",
+        "path": "storage/data/verse_translations/de.bubenheim.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "de.khoury",
+        "language": "tr",
+        "rows": 6122,
+        "file": "de.khoury.zip",
+        "path": "storage/data/verse_translations/de.khoury.zip",
+        "size_mb": 0.29
+    },
+    {
+        "meal_key": "de.zaidan",
+        "language": "tr",
+        "rows": 6122,
+        "file": "de.zaidan.zip",
+        "path": "storage/data/verse_translations/de.zaidan.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "dv.divehi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "dv.divehi.zip",
+        "path": "storage/data/verse_translations/dv.divehi.zip",
+        "size_mb": 0.41
+    },
+    {
+        "meal_key": "en.ahmedali",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.ahmedali.zip",
+        "path": "storage/data/verse_translations/en.ahmedali.zip",
+        "size_mb": 0.27
+    },
+    {
+        "meal_key": "en.ahmedraza",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.ahmedraza.zip",
+        "path": "storage/data/verse_translations/en.ahmedraza.zip",
+        "size_mb": 0.28
+    },
+    {
+        "meal_key": "en.arberry",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.arberry.zip",
+        "path": "storage/data/verse_translations/en.arberry.zip",
+        "size_mb": 0.25
+    },
+    {
+        "meal_key": "en.daryabadi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.daryabadi.zip",
+        "path": "storage/data/verse_translations/en.daryabadi.zip",
+        "size_mb": 0.27
+    },
+    {
+        "meal_key": "en.hilali",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.hilali.zip",
+        "path": "storage/data/verse_translations/en.hilali.zip",
+        "size_mb": 0.35
+    },
+    {
+        "meal_key": "en.itani",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.itani.zip",
+        "path": "storage/data/verse_translations/en.itani.zip",
+        "size_mb": 0.25
+    },
+    {
+        "meal_key": "en.maududi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.maududi.zip",
+        "path": "storage/data/verse_translations/en.maududi.zip",
+        "size_mb": 0.31
+    },
+    {
+        "meal_key": "en.mubarakpuri",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.mubarakpuri.zip",
+        "path": "storage/data/verse_translations/en.mubarakpuri.zip",
+        "size_mb": 0.29
+    },
+    {
+        "meal_key": "en.pickthall",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.pickthall.zip",
+        "path": "storage/data/verse_translations/en.pickthall.zip",
+        "size_mb": 0.27
+    },
+    {
+        "meal_key": "en.qarai",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.qarai.zip",
+        "path": "storage/data/verse_translations/en.qarai.zip",
+        "size_mb": 0.26
+    },
+    {
+        "meal_key": "en.qaribullah",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.qaribullah.zip",
+        "path": "storage/data/verse_translations/en.qaribullah.zip",
+        "size_mb": 0.26
+    },
+    {
         "meal_key": "en.sahih",
-        "language": "en",
-        "rows": 1,
+        "language": "tr",
+        "rows": 6122,
         "file": "en.sahih.zip",
         "path": "storage/data/verse_translations/en.sahih.zip",
-        "size_mb": 0
+        "size_mb": 0.27
+    },
+    {
+        "meal_key": "en.sarwar",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.sarwar.zip",
+        "path": "storage/data/verse_translations/en.sarwar.zip",
+        "size_mb": 0.27
+    },
+    {
+        "meal_key": "en.shakir",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.shakir.zip",
+        "path": "storage/data/verse_translations/en.shakir.zip",
+        "size_mb": 0.26
+    },
+    {
+        "meal_key": "en.transliteration",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.transliteration.zip",
+        "path": "storage/data/verse_translations/en.transliteration.zip",
+        "size_mb": 0.24
+    },
+    {
+        "meal_key": "en.wahiduddin",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.wahiduddin.zip",
+        "path": "storage/data/verse_translations/en.wahiduddin.zip",
+        "size_mb": 0.28
+    },
+    {
+        "meal_key": "en.yusufali",
+        "language": "tr",
+        "rows": 6122,
+        "file": "en.yusufali.zip",
+        "path": "storage/data/verse_translations/en.yusufali.zip",
+        "size_mb": 0.31
+    },
+    {
+        "meal_key": "es.bornez",
+        "language": "tr",
+        "rows": 6122,
+        "file": "es.bornez.zip",
+        "path": "storage/data/verse_translations/es.bornez.zip",
+        "size_mb": 0.28
+    },
+    {
+        "meal_key": "es.cortes",
+        "language": "tr",
+        "rows": 6122,
+        "file": "es.cortes.zip",
+        "path": "storage/data/verse_translations/es.cortes.zip",
+        "size_mb": 0.26
+    },
+    {
+        "meal_key": "es.garcia",
+        "language": "tr",
+        "rows": 6122,
+        "file": "es.garcia.zip",
+        "path": "storage/data/verse_translations/es.garcia.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "fa.ansarian",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.ansarian.zip",
+        "path": "storage/data/verse_translations/fa.ansarian.zip",
+        "size_mb": 0.39
+    },
+    {
+        "meal_key": "fa.ayati",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.ayati.zip",
+        "path": "storage/data/verse_translations/fa.ayati.zip",
+        "size_mb": 0.28
+    },
+    {
+        "meal_key": "fa.bahrampour",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.bahrampour.zip",
+        "path": "storage/data/verse_translations/fa.bahrampour.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "fa.fooladvand",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.fooladvand.zip",
+        "path": "storage/data/verse_translations/fa.fooladvand.zip",
+        "size_mb": 0.32
+    },
+    {
+        "meal_key": "fa.gharaati",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.gharaati.zip",
+        "path": "storage/data/verse_translations/fa.gharaati.zip",
+        "size_mb": 0.36
+    },
+    {
+        "meal_key": "fa.ghomshei",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.ghomshei.zip",
+        "path": "storage/data/verse_translations/fa.ghomshei.zip",
+        "size_mb": 0.4
+    },
+    {
+        "meal_key": "fa.khorramdel",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.khorramdel.zip",
+        "path": "storage/data/verse_translations/fa.khorramdel.zip",
+        "size_mb": 1.26
+    },
+    {
+        "meal_key": "fa.khorramshahi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.khorramshahi.zip",
+        "path": "storage/data/verse_translations/fa.khorramshahi.zip",
+        "size_mb": 0.29
+    },
+    {
+        "meal_key": "fa.makarem",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.makarem.zip",
+        "path": "storage/data/verse_translations/fa.makarem.zip",
+        "size_mb": 0.36
+    },
+    {
+        "meal_key": "fa.moezzi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.moezzi.zip",
+        "path": "storage/data/verse_translations/fa.moezzi.zip",
+        "size_mb": 0.25
+    },
+    {
+        "meal_key": "fa.mojtabavi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.mojtabavi.zip",
+        "path": "storage/data/verse_translations/fa.mojtabavi.zip",
+        "size_mb": 0.32
+    },
+    {
+        "meal_key": "fa.sadeqi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.sadeqi.zip",
+        "path": "storage/data/verse_translations/fa.sadeqi.zip",
+        "size_mb": 0.36
+    },
+    {
+        "meal_key": "fa.safavi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fa.safavi.zip",
+        "path": "storage/data/verse_translations/fa.safavi.zip",
+        "size_mb": 0.44
+    },
+    {
+        "meal_key": "fr.hamidullah",
+        "language": "tr",
+        "rows": 6122,
+        "file": "fr.hamidullah.zip",
+        "path": "storage/data/verse_translations/fr.hamidullah.zip",
+        "size_mb": 0.31
+    },
+    {
+        "meal_key": "ha.gumi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ha.gumi.zip",
+        "path": "storage/data/verse_translations/ha.gumi.zip",
+        "size_mb": 0.27
+    },
+    {
+        "meal_key": "hi.farooq",
+        "language": "tr",
+        "rows": 6122,
+        "file": "hi.farooq.zip",
+        "path": "storage/data/verse_translations/hi.farooq.zip",
+        "size_mb": 0.38
+    },
+    {
+        "meal_key": "hi.hindi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "hi.hindi.zip",
+        "path": "storage/data/verse_translations/hi.hindi.zip",
+        "size_mb": 0.44
+    },
+    {
+        "meal_key": "id.indonesian",
+        "language": "tr",
+        "rows": 6122,
+        "file": "id.indonesian.zip",
+        "path": "storage/data/verse_translations/id.indonesian.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "id.jalalayn",
+        "language": "tr",
+        "rows": 6122,
+        "file": "id.jalalayn.zip",
+        "path": "storage/data/verse_translations/id.jalalayn.zip",
+        "size_mb": 0.76
+    },
+    {
+        "meal_key": "id.muntakhab",
+        "language": "tr",
+        "rows": 6122,
+        "file": "id.muntakhab.zip",
+        "path": "storage/data/verse_translations/id.muntakhab.zip",
+        "size_mb": 0.67
+    },
+    {
+        "meal_key": "it.piccardo",
+        "language": "tr",
+        "rows": 6122,
+        "file": "it.piccardo.zip",
+        "path": "storage/data/verse_translations/it.piccardo.zip",
+        "size_mb": 0.28
+    },
+    {
+        "meal_key": "ja.japanese",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ja.japanese.zip",
+        "path": "storage/data/verse_translations/ja.japanese.zip",
+        "size_mb": 0.33
+    },
+    {
+        "meal_key": "ko.korean",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ko.korean.zip",
+        "path": "storage/data/verse_translations/ko.korean.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "ku.asan",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ku.asan.zip",
+        "path": "storage/data/verse_translations/ku.asan.zip",
+        "size_mb": 0.52
+    },
+    {
+        "meal_key": "ml.abdulhameed",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ml.abdulhameed.zip",
+        "path": "storage/data/verse_translations/ml.abdulhameed.zip",
+        "size_mb": 0.43
+    },
+    {
+        "meal_key": "ml.karakunnu",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ml.karakunnu.zip",
+        "path": "storage/data/verse_translations/ml.karakunnu.zip",
+        "size_mb": 0.41
+    },
+    {
+        "meal_key": "ms.basmeih",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ms.basmeih.zip",
+        "path": "storage/data/verse_translations/ms.basmeih.zip",
+        "size_mb": 0.39
+    },
+    {
+        "meal_key": "nl.keyzer",
+        "language": "tr",
+        "rows": 6122,
+        "file": "nl.keyzer.zip",
+        "path": "storage/data/verse_translations/nl.keyzer.zip",
+        "size_mb": 0.31
+    },
+    {
+        "meal_key": "nl.leemhuis",
+        "language": "tr",
+        "rows": 6122,
+        "file": "nl.leemhuis.zip",
+        "path": "storage/data/verse_translations/nl.leemhuis.zip",
+        "size_mb": 0.27
+    },
+    {
+        "meal_key": "nl.siregar",
+        "language": "tr",
+        "rows": 6122,
+        "file": "nl.siregar.zip",
+        "path": "storage/data/verse_translations/nl.siregar.zip",
+        "size_mb": 0.29
+    },
+    {
+        "meal_key": "no.berg",
+        "language": "tr",
+        "rows": 6122,
+        "file": "no.berg.zip",
+        "path": "storage/data/verse_translations/no.berg.zip",
+        "size_mb": 0.25
+    },
+    {
+        "meal_key": "pl.bielawskiego",
+        "language": "tr",
+        "rows": 6122,
+        "file": "pl.bielawskiego.zip",
+        "path": "storage/data/verse_translations/pl.bielawskiego.zip",
+        "size_mb": 0.29
+    },
+    {
+        "meal_key": "ps.abdulwali",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ps.abdulwali.zip",
+        "path": "storage/data/verse_translations/ps.abdulwali.zip",
+        "size_mb": 0.35
+    },
+    {
+        "meal_key": "pt.elhayek",
+        "language": "tr",
+        "rows": 6122,
+        "file": "pt.elhayek.zip",
+        "path": "storage/data/verse_translations/pt.elhayek.zip",
+        "size_mb": 0.28
+    },
+    {
+        "meal_key": "ro.grigore",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ro.grigore.zip",
+        "path": "storage/data/verse_translations/ro.grigore.zip",
+        "size_mb": 0.26
+    },
+    {
+        "meal_key": "ru.abuadel",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ru.abuadel.zip",
+        "path": "storage/data/verse_translations/ru.abuadel.zip",
+        "size_mb": 0.66
+    },
+    {
+        "meal_key": "ru.kalam",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ru.kalam.zip",
+        "path": "storage/data/verse_translations/ru.kalam.zip",
+        "size_mb": 0.43
+    },
+    {
+        "meal_key": "ru.krachkovsky",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ru.krachkovsky.zip",
+        "path": "storage/data/verse_translations/ru.krachkovsky.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "ru.kuliev",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ru.kuliev.zip",
+        "path": "storage/data/verse_translations/ru.kuliev.zip",
+        "size_mb": 0.33
+    },
+    {
+        "meal_key": "ru.kuliev-alsaadi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ru.kuliev-alsaadi.zip",
+        "path": "storage/data/verse_translations/ru.kuliev-alsaadi.zip",
+        "size_mb": 2.18
+    },
+    {
+        "meal_key": "ru.muntahab",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ru.muntahab.zip",
+        "path": "storage/data/verse_translations/ru.muntahab.zip",
+        "size_mb": 0.72
+    },
+    {
+        "meal_key": "ru.osmanov",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ru.osmanov.zip",
+        "path": "storage/data/verse_translations/ru.osmanov.zip",
+        "size_mb": 0.36
+    },
+    {
+        "meal_key": "ru.porokhova",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ru.porokhova.zip",
+        "path": "storage/data/verse_translations/ru.porokhova.zip",
+        "size_mb": 0.4
+    },
+    {
+        "meal_key": "ru.sablukov",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ru.sablukov.zip",
+        "path": "storage/data/verse_translations/ru.sablukov.zip",
+        "size_mb": 0.33
+    },
+    {
+        "meal_key": "sd.amroti",
+        "language": "tr",
+        "rows": 6122,
+        "file": "sd.amroti.zip",
+        "path": "storage/data/verse_translations/sd.amroti.zip",
+        "size_mb": 0.32
+    },
+    {
+        "meal_key": "so.abduh",
+        "language": "tr",
+        "rows": 6122,
+        "file": "so.abduh.zip",
+        "path": "storage/data/verse_translations/so.abduh.zip",
+        "size_mb": 0.26
+    },
+    {
+        "meal_key": "sq.ahmeti",
+        "language": "tr",
+        "rows": 6122,
+        "file": "sq.ahmeti.zip",
+        "path": "storage/data/verse_translations/sq.ahmeti.zip",
+        "size_mb": 0.32
+    },
+    {
+        "meal_key": "sq.mehdiu",
+        "language": "tr",
+        "rows": 6122,
+        "file": "sq.mehdiu.zip",
+        "path": "storage/data/verse_translations/sq.mehdiu.zip",
+        "size_mb": 0.28
+    },
+    {
+        "meal_key": "sq.nahi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "sq.nahi.zip",
+        "path": "storage/data/verse_translations/sq.nahi.zip",
+        "size_mb": 0.31
+    },
+    {
+        "meal_key": "sv.bernstrom",
+        "language": "tr",
+        "rows": 6122,
+        "file": "sv.bernstrom.zip",
+        "path": "storage/data/verse_translations/sv.bernstrom.zip",
+        "size_mb": 0.34
+    },
+    {
+        "meal_key": "sw.barwani",
+        "language": "tr",
+        "rows": 6122,
+        "file": "sw.barwani.zip",
+        "path": "storage/data/verse_translations/sw.barwani.zip",
+        "size_mb": 0.25
+    },
+    {
+        "meal_key": "ta.tamil",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ta.tamil.zip",
+        "path": "storage/data/verse_translations/ta.tamil.zip",
+        "size_mb": 0.47
+    },
+    {
+        "meal_key": "tg.ayati",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tg.ayati.zip",
+        "path": "storage/data/verse_translations/tg.ayati.zip",
+        "size_mb": 0.31
+    },
+    {
+        "meal_key": "th.thai",
+        "language": "tr",
+        "rows": 6122,
+        "file": "th.thai.zip",
+        "path": "storage/data/verse_translations/th.thai.zip",
+        "size_mb": 0.38
+    },
+    {
+        "meal_key": "tr.ates",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tr.ates.zip",
+        "path": "storage/data/verse_translations/tr.ates.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "tr.bulac",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tr.bulac.zip",
+        "path": "storage/data/verse_translations/tr.bulac.zip",
+        "size_mb": 0.31
     },
     {
         "meal_key": "tr.diyanet",
         "language": "tr",
-        "rows": 2,
+        "rows": 6122,
         "file": "tr.diyanet.zip",
         "path": "storage/data/verse_translations/tr.diyanet.zip",
-        "size_mb": 0
+        "size_mb": 0.27
+    },
+    {
+        "meal_key": "tr.golpinarli",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tr.golpinarli.zip",
+        "path": "storage/data/verse_translations/tr.golpinarli.zip",
+        "size_mb": 0.29
+    },
+    {
+        "meal_key": "tr.ozturk",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tr.ozturk.zip",
+        "path": "storage/data/verse_translations/tr.ozturk.zip",
+        "size_mb": 0.31
+    },
+    {
+        "meal_key": "tr.transliteration",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tr.transliteration.zip",
+        "path": "storage/data/verse_translations/tr.transliteration.zip",
+        "size_mb": 0.22
+    },
+    {
+        "meal_key": "tr.vakfi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tr.vakfi.zip",
+        "path": "storage/data/verse_translations/tr.vakfi.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "tr.yazir",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tr.yazir.zip",
+        "path": "storage/data/verse_translations/tr.yazir.zip",
+        "size_mb": 0.3
+    },
+    {
+        "meal_key": "tr.yildirim",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tr.yildirim.zip",
+        "path": "storage/data/verse_translations/tr.yildirim.zip",
+        "size_mb": 0.39
+    },
+    {
+        "meal_key": "tr.yuksel",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tr.yuksel.zip",
+        "path": "storage/data/verse_translations/tr.yuksel.zip",
+        "size_mb": 0.26
+    },
+    {
+        "meal_key": "tt.nugman",
+        "language": "tr",
+        "rows": 6122,
+        "file": "tt.nugman.zip",
+        "path": "storage/data/verse_translations/tt.nugman.zip",
+        "size_mb": 0.47
+    },
+    {
+        "meal_key": "ug.saleh",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ug.saleh.zip",
+        "path": "storage/data/verse_translations/ug.saleh.zip",
+        "size_mb": 0.41
+    },
+    {
+        "meal_key": "ur.ahmedali",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ur.ahmedali.zip",
+        "path": "storage/data/verse_translations/ur.ahmedali.zip",
+        "size_mb": 0.29
+    },
+    {
+        "meal_key": "ur.jalandhry",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ur.jalandhry.zip",
+        "path": "storage/data/verse_translations/ur.jalandhry.zip",
+        "size_mb": 0.34
+    },
+    {
+        "meal_key": "ur.jawadi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ur.jawadi.zip",
+        "path": "storage/data/verse_translations/ur.jawadi.zip",
+        "size_mb": 0.32
+    },
+    {
+        "meal_key": "ur.junagarhi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ur.junagarhi.zip",
+        "path": "storage/data/verse_translations/ur.junagarhi.zip",
+        "size_mb": 0.34
+    },
+    {
+        "meal_key": "ur.kanzuliman",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ur.kanzuliman.zip",
+        "path": "storage/data/verse_translations/ur.kanzuliman.zip",
+        "size_mb": 0.28
+    },
+    {
+        "meal_key": "ur.maududi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ur.maududi.zip",
+        "path": "storage/data/verse_translations/ur.maududi.zip",
+        "size_mb": 0.37
+    },
+    {
+        "meal_key": "ur.najafi",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ur.najafi.zip",
+        "path": "storage/data/verse_translations/ur.najafi.zip",
+        "size_mb": 0.37
+    },
+    {
+        "meal_key": "ur.qadri",
+        "language": "tr",
+        "rows": 6122,
+        "file": "ur.qadri.zip",
+        "path": "storage/data/verse_translations/ur.qadri.zip",
+        "size_mb": 0.43
+    },
+    {
+        "meal_key": "uz.sodik",
+        "language": "tr",
+        "rows": 6122,
+        "file": "uz.sodik.zip",
+        "path": "storage/data/verse_translations/uz.sodik.zip",
+        "size_mb": 0.54
+    },
+    {
+        "meal_key": "zh.jian",
+        "language": "tr",
+        "rows": 6122,
+        "file": "zh.jian.zip",
+        "path": "storage/data/verse_translations/zh.jian.zip",
+        "size_mb": 0.26
+    },
+    {
+        "meal_key": "zh.majian",
+        "language": "tr",
+        "rows": 6122,
+        "file": "zh.majian.zip",
+        "path": "storage/data/verse_translations/zh.majian.zip",
+        "size_mb": 0.26
     }
 ]

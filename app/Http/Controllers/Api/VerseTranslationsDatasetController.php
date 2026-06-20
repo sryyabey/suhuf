@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\UserMealPreference;
 use App\Models\UserSetting;
+use App\Models\VerseTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -15,36 +16,27 @@ class VerseTranslationsDatasetController extends Controller
 {
     public function mealKeys(Request $request): JsonResponse
     {
-        $datasets = $this->loadDatasets();
-
-        if ($datasets === null) {
-            return response()->json([
-                'message' => 'Verse translations dataset index not found.',
-            ], 404);
-        }
-
         $user = $request->user();
+
         $setting = UserSetting::query()->firstOrCreate(
             ['user_id' => $user->id],
             ['preferred_language' => 'tr', 'preferred_arabic_font' => 'amiri']
         );
-        $language = (string) $request->query('language', $setting->preferred_language);
+
         $selectedMealKeys = UserMealPreference::query()
             ->where('user_id', $user->id)
-            ->where('language', $language)
             ->orderBy('meal_key')
             ->pluck('meal_key')
             ->values();
-        $mealKeys = collect($datasets)
-            ->filter(fn (array $item): bool => (string) ($item['language'] ?? '') === $language)
+
+        $mealKeys = VerseTranslation::distinct()
+            ->orderBy('meal_key')
             ->pluck('meal_key')
-            ->filter()
-            ->unique()
             ->values();
+
 
         return response()->json([
             'preferred_language' => $setting->preferred_language,
-            'requested_language' => $language,
             'selected_meal_keys' => $selectedMealKeys,
             'meal_keys' => $mealKeys,
         ]);
@@ -52,32 +44,38 @@ class VerseTranslationsDatasetController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $data = $this->loadDatasets();
-
-        if ($data === null) {
-            return response()->json([
-                'message' => 'Verse translations dataset index not found.',
-            ], 404);
-        }
         $user = $request->user();
         $setting = UserSetting::query()->firstOrCreate(
             ['user_id' => $user->id],
             ['preferred_language' => 'tr', 'preferred_arabic_font' => 'amiri']
         );
-        $language = (string) $request->query('language', $setting->preferred_language);
         $selectedMealKeys = UserMealPreference::query()
             ->where('user_id', $user->id)
-            ->where('language', $language)
             ->orderBy('meal_key')
             ->pluck('meal_key')
             ->values();
-        $datasets = collect(is_array($data) ? $data : [])
-            ->filter(fn (array $item): bool => (string) ($item['language'] ?? '') === $language)
-            ->values();
+        $datasets = VerseTranslation::query()
+            ->select('meal_key', 'language')
+            ->selectRaw('COUNT(*) as rows')
+            ->groupBy('meal_key', 'language')
+            ->orderBy('meal_key')
+            ->get()
+            ->map(function (VerseTranslation $item): array {
+                $mealKey = (string) $item->meal_key;
+                $filename = $this->mealKeyFilename($mealKey);
+                $path = storage_path('data/verse_translations/' . $filename);
+
+                return [
+                    'meal_key' => $mealKey,
+                    'language' => (string) $item->language,
+                    'rows' => (int) $item->rows,
+                    'file' => $filename,
+                    'size_mb' => is_file($path) ? round(filesize($path) / 1024 / 1024, 2) : 0,
+                ];
+            });
 
         return response()->json([
             'preferred_language' => $setting->preferred_language,
-            'requested_language' => $language,
             'selected_meal_keys' => $selectedMealKeys,
             'datasets' => $this->transformDatasets($datasets, $selectedMealKeys),
         ]);
@@ -86,9 +84,9 @@ class VerseTranslationsDatasetController extends Controller
     public function download(string $mealKey): BinaryFileResponse|JsonResponse
     {
         $filename = $this->mealKeyFilename($mealKey);
-        $path = storage_path('data/verse_translations/'.$filename);
+        $path = storage_path('data/verse_translations/' . $filename);
 
-        if (! is_file($path)) {
+        if (!is_file($path)) {
             return response()->json([
                 'message' => 'Verse translations dataset file not found.',
             ], 404);
@@ -108,20 +106,7 @@ class VerseTranslationsDatasetController extends Controller
             ->trim('-')
             ->toString();
 
-        return ($slug === '' ? 'meal' : $slug).'.zip';
-    }
-
-    protected function loadDatasets(): ?array
-    {
-        $path = storage_path('data/verse_translations/index.json');
-
-        if (! is_file($path)) {
-            return null;
-        }
-
-        $data = json_decode((string) file_get_contents($path), true);
-
-        return is_array($data) ? $data : [];
+        return ($slug === '' ? 'meal' : $slug) . '.zip';
     }
 
     protected function transformDatasets(Collection $datasets, Collection $selectedMealKeys): array
@@ -140,10 +125,10 @@ class VerseTranslationsDatasetController extends Controller
                     'file' => $filename,
                     'size_mb' => (float) ($item['size_mb'] ?? 0),
                     'selected' => $selected->has($mealKey),
-                    'download_url' => url('/api/datasets/verse-translations/'.$mealKey.'/download'),
+                    'download_url' => url('/api/datasets/verse-translations/' . $mealKey . '/download'),
                 ];
             })
-            ->sortByDesc(fn (array $item): int => $item['selected'] ? 1 : 0)
+            ->sortByDesc(fn(array $item): int => $item['selected'] ? 1 : 0)
             ->values()
             ->all();
     }

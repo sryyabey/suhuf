@@ -26,26 +26,35 @@ class VerseTranslationsDatasetDownloadTest extends TestCase
 
     public function test_authenticated_user_can_list_dataset_files(): void
     {
-        $directory = storage_path('data/verse_translations');
-
-        if (! is_dir($directory)) {
-            mkdir($directory, 0777, true);
-        }
-
-        file_put_contents($directory.'/index.json', json_encode([
+        VerseTranslation::insert([
             [
+                'sura' => 1,
+                'aya' => 1,
                 'meal_key' => 'tr.diyanet',
                 'language' => 'tr',
-                'rows' => 10,
-                'file' => 'tr.diyanet.zip',
+                'text' => 'Birinci metin',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
+                'sura' => 1,
+                'aya' => 2,
+                'meal_key' => 'tr.diyanet',
+                'language' => 'tr',
+                'text' => 'İkinci metin',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'sura' => 1,
+                'aya' => 1,
                 'meal_key' => 'en.sahih',
                 'language' => 'en',
-                'rows' => 10,
-                'file' => 'en.sahih.zip',
+                'text' => 'First text',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-        ]));
+        ]);
 
         $user = User::factory()->create();
         $token = $user->createToken('test-device')->plainTextToken;
@@ -62,44 +71,45 @@ class VerseTranslationsDatasetDownloadTest extends TestCase
             ->get('/api/datasets/verse-translations')
             ->assertOk()
             ->assertJsonPath('preferred_language', 'tr')
-            ->assertJsonPath('requested_language', 'tr')
             ->assertJsonPath('selected_meal_keys.0', 'tr.diyanet')
             ->assertJsonPath('datasets.0.meal_key', 'tr.diyanet')
             ->assertJsonPath('datasets.0.selected', true)
             ->assertJsonPath('datasets.0.download_url', url('/api/datasets/verse-translations/tr.diyanet/download'))
-            ->assertJsonMissingPath('datasets.1.meal_key');
-
-        @unlink($directory.'/index.json');
+            ->assertJsonPath('datasets.1.meal_key', 'en.sahih')
+            ->assertJsonPath('datasets.1.selected', false);
     }
 
     public function test_authenticated_user_can_get_meal_keys(): void
     {
-        $directory = storage_path('data/verse_translations');
-
-        if (! is_dir($directory)) {
-            mkdir($directory, 0777, true);
-        }
-
-        file_put_contents($directory.'/index.json', json_encode([
+        VerseTranslation::insert([
             [
+                'sura' => 1,
+                'aya' => 1,
                 'meal_key' => 'tr.diyanet',
                 'language' => 'tr',
-                'rows' => 10,
-                'file' => 'tr.diyanet.zip',
+                'text' => 'Birinci metin',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
+                'sura' => 1,
+                'aya' => 1,
                 'meal_key' => 'tr.vakfi',
                 'language' => 'tr',
-                'rows' => 10,
-                'file' => 'tr.vakfi.zip',
+                'text' => 'İkinci metin',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
+                'sura' => 1,
+                'aya' => 1,
                 'meal_key' => 'en.sahih',
                 'language' => 'en',
-                'rows' => 10,
-                'file' => 'en.sahih.zip',
+                'text' => 'First text',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
-        ]));
+        ]);
 
         $user = User::factory()->create();
         $token = $user->createToken('test-device')->plainTextToken;
@@ -116,13 +126,10 @@ class VerseTranslationsDatasetDownloadTest extends TestCase
             ->get('/api/datasets/verse-translations/meal-keys')
             ->assertOk()
             ->assertJsonPath('preferred_language', 'tr')
-            ->assertJsonPath('requested_language', 'tr')
             ->assertJsonPath('selected_meal_keys.0', 'tr.diyanet')
-            ->assertJsonPath('meal_keys.0', 'tr.diyanet')
-            ->assertJsonPath('meal_keys.1', 'tr.vakfi')
-            ->assertJsonMissingPath('meal_keys.2');
-
-        @unlink($directory.'/index.json');
+            ->assertJsonPath('meal_keys.0', 'en.sahih')
+            ->assertJsonPath('meal_keys.1', 'tr.diyanet')
+            ->assertJsonPath('meal_keys.2', 'tr.vakfi');
     }
 
     public function test_authenticated_user_can_download_selected_meal_dataset(): void
@@ -180,12 +187,17 @@ class VerseTranslationsDatasetDownloadTest extends TestCase
             ],
         ]);
 
-        $directory = storage_path('data/verse_translations');
+        $directory = storage_path('app/test-verse-translations');
+        if (! is_dir($directory)) {
+            mkdir($directory, 0777, true);
+        }
         @unlink($directory.'/tr.diyanet.zip');
         @unlink($directory.'/en.sahih.zip');
         @unlink($directory.'/index.json');
 
-        $this->artisan('dataset:verse-translations:build')
+        $this->artisan('dataset:verse-translations:build', [
+            '--directory' => 'storage/app/test-verse-translations',
+        ])
             ->assertSuccessful();
 
         $this->assertFileExists($directory.'/tr.diyanet.zip');
@@ -205,5 +217,10 @@ class VerseTranslationsDatasetDownloadTest extends TestCase
         $this->assertNotFalse($contents);
         $this->assertStringContainsString("1\t1\ttr.diyanet\ttr\tBirinci metin", $contents);
         $this->assertStringContainsString("1\t2\ttr.diyanet\ttr\tİkinci metin", $contents);
+
+        @unlink($directory.'/tr.diyanet.zip');
+        @unlink($directory.'/en.sahih.zip');
+        @unlink($directory.'/index.json');
+        @rmdir($directory);
     }
 }
