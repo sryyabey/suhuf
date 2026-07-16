@@ -307,6 +307,24 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="form-label" for="invite_code">
+                    <i class="ti ti-ticket"></i> {{ __('Invitation Code') }}
+                </label>
+                <div class="input-wrap">
+                    <i class="ti ti-ticket input-icon"></i>
+                    <input
+                        id="invite_code" name="invite_code" type="text"
+                        class="form-input @error('invite_code') is-error @enderror"
+                        value="{{ old('invite_code', $inviteCode ?? '') }}"
+                        placeholder="{{ __('Enter your invitation code') }}"
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+                <div class="input-hint">{{ __('You need a valid invitation code from an existing user.') }}</div>
+            </div>
+
             {{-- Şifre --}}
             <div class="form-group">
                 <label class="form-label" for="password">

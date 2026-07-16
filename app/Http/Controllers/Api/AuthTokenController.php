@@ -7,26 +7,19 @@ use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Services\InviteRegistrationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Spatie\Permission\Models\Role;
 
 class AuthTokenController extends Controller
 {
-    public function register(RegisterRequest $request): JsonResponse
+    public function register(RegisterRequest $request, InviteRegistrationService $inviteRegistrationService): JsonResponse
     {
         $validated = $request->validated();
 
-        $user = User::query()->create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $validated['password'],
-        ]);
-
-        $userRole = Role::findOrCreate('user', 'web');
-        $user->assignRole($userRole);
+        $user = $inviteRegistrationService->register($validated);
 
         $token = $user->createToken($validated['device_name'] ?? 'api-token')->plainTextToken;
 

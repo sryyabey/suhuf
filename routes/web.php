@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\Share\NoteShareController;
+use App\Http\Controllers\UserInviteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:user|super_admin'])->group(function (): void {
     Route::view('/dashboard', 'dashboard.user')->name('user.dashboard');
+    Route::post('/dashboard/invites', [UserInviteController::class, 'store'])->name('user.invites.store');
     Route::view('/quran-reading', 'quran.read')->name('user.quran-read');
     Route::view('/quran-text', 'quran.text')->name('user.quran-text');
     Route::view('/quran-notes', 'quran.notes-range')->name('user.quran-notes-range');

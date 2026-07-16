@@ -14,6 +14,12 @@ class UserInfolist
                 TextEntry::make('name'),
                 TextEntry::make('email')
                     ->label('Email address'),
+                TextEntry::make('referredBy.name')
+                    ->label('Referrer')
+                    ->placeholder('-'),
+                TextEntry::make('usedInvite.code')
+                    ->label('Invite Code')
+                    ->placeholder('-'),
                 TextEntry::make('email_verified_at')
                     ->dateTime()
                     ->placeholder('-'),

@@ -130,6 +130,86 @@
   .db-card-link { font-family: 'Cairo', sans-serif; font-size: 12px; color: var(--teal-mid); text-decoration: none; }
   .db-card-link:hover { text-decoration: underline; }
 
+  .db-invite-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(45,155,132,0.09), rgba(212,168,67,0.1));
+    border: 1px solid rgba(45,155,132,0.18);
+  }
+  .db-invite-text {
+    font-family: 'Cairo', sans-serif;
+    font-size: 12.5px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+  .db-invite-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .db-btn-primary,
+  .db-btn-secondary {
+    appearance: none;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: transform .13s, opacity .13s, background .13s;
+  }
+  .db-btn-primary {
+    background: var(--teal-dark);
+    color: #fff;
+  }
+  .db-btn-secondary {
+    background: #fff;
+    color: var(--teal-dark);
+    border: 1px solid rgba(45,155,132,0.2);
+  }
+  .db-btn-primary:hover,
+  .db-btn-secondary:hover {
+    transform: translateY(-1px);
+  }
+  .db-invite-meta {
+    display: grid;
+    gap: 8px;
+  }
+  .db-invite-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .db-invite-label {
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+  }
+  .db-invite-value {
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    word-break: break-all;
+  }
+  .db-invite-flash {
+    margin-top: 10px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    color: var(--teal-dark);
+  }
+
   /* ── Sura list ────────────────────────────────────────────────── */
   .db-sura-list { display: flex; flex-direction: column; gap: 6px; }
   .db-sura-item {
@@ -241,6 +321,24 @@
       ->orderByDesc('notes_count')
       ->take(10)
       ->get(['id','name']);
+
+  $latestInvite = \App\Models\UserInvite::query()
+      ->where('user_id', $user?->id)
+      ->latest('id')
+      ->first();
+
+  $activeInvite = \App\Models\UserInvite::query()
+      ->where('user_id', $user?->id)
+      ->where('is_active', true)
+      ->whereColumn('used_count', '<', 'max_uses')
+      ->latest('id')
+      ->first();
+
+  $inviteToShow = $activeInvite ?? $latestInvite;
+  $inviteLocale = in_array(app()->getLocale(), ['tr', 'en'], true) ? app()->getLocale() : 'tr';
+  $inviteLink = $inviteToShow
+      ? route('register', ['invite' => $inviteToShow->code, 'locale' => $inviteLocale])
+      : null;
 
   /* Sura name helper */
   $suraNames = [
@@ -421,6 +519,58 @@
 {{-- ── Main grid ───────────────────────────────────────────────────── --}}
 <div class="db-row-2-3">
 
+  <div class="db-card">
+    <div class="db-card-head">
+      <div class="db-card-title"><i class="ti ti-user-plus"></i> {{ __('Invite a User') }}</div>
+    </div>
+    <div class="db-invite-box">
+      <div class="db-invite-text">
+        {{ __('Create an invite code and share it.') }}
+      </div>
+
+      <div class="db-invite-actions">
+        <form method="POST" action="{{ route('user.invites.store') }}">
+          @csrf
+          <button type="submit" class="db-btn-primary">
+            <i class="ti ti-ticket"></i>
+            {{ __('Create Invite Code') }}
+          </button>
+        </form>
+
+        @if($inviteLink)
+          <button
+            type="button"
+            class="db-btn-secondary"
+            data-copy-text="{{ $inviteLink }}"
+            onclick="copyInviteText(this)"
+          >
+            <i class="ti ti-copy"></i>
+            {{ __('Copy Invite Link') }}
+          </button>
+        @endif
+      </div>
+
+      @if($inviteToShow)
+        <div class="db-invite-meta">
+          <div class="db-invite-field">
+            <div class="db-invite-label">{{ __('Code') }}</div>
+            <div class="db-invite-value">{{ $inviteToShow->code }}</div>
+          </div>
+          <div class="db-invite-field">
+            <div class="db-invite-label">{{ __('Register Link') }}</div>
+            <div class="db-invite-value">{{ $inviteLink }}</div>
+          </div>
+        </div>
+      @endif
+
+      @if(session('invite_code_created'))
+        <div class="db-invite-flash">
+          {{ __('New invitation code created successfully.') }}
+        </div>
+      @endif
+    </div>
+  </div>
+
   {{-- Son çalışılan sureler --}}
   <div class="db-card">
     <div class="db-card-head">
@@ -499,3 +649,24 @@
 @endif
 
 @endsection
+
+@push('scripts')
+<script>
+function copyInviteText(button) {
+  const text = button.getAttribute('data-copy-text');
+
+  if (!text || !navigator.clipboard) {
+    return;
+  }
+
+  navigator.clipboard.writeText(text).then(() => {
+    const original = button.innerHTML;
+    button.innerHTML = '<i class="ti ti-check"></i> {{ __('Copied') }}';
+
+    window.setTimeout(() => {
+      button.innerHTML = original;
+    }, 1600);
+  });
+}
+</script>
+@endpush

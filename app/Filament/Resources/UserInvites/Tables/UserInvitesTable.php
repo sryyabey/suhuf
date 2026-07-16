@@ -1,42 +1,43 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\UserInvites\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use STS\FilamentImpersonate\Actions\Impersonate;
 
-class UsersTable
+class UserInvitesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('referredBy.name')
-                    ->label('Referrer')
-                    ->placeholder('-')
-                    ->searchable(),
-                TextColumn::make('usedInvite.code')
-                    ->label('Invite Code')
-                    ->placeholder('-')
+                TextColumn::make('code')
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('email_verified_at')
+                    ->copyable(),
+                TextColumn::make('user.name')
+                    ->label('Referrer')
+                    ->searchable(),
+                TextColumn::make('used_count')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('max_uses')
+                    ->numeric()
+                    ->sortable(),
+                IconColumn::make('is_active')
+                    ->boolean(),
+                TextColumn::make('expires_at')
                     ->dateTime()
+                    ->placeholder('-')
+                    ->sortable(),
+                TextColumn::make('last_used_at')
+                    ->dateTime()
+                    ->placeholder('-')
                     ->sortable(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -45,7 +46,6 @@ class UsersTable
                 //
             ])
             ->recordActions([
-                Impersonate::make()->guard('web')->label('')->tooltip(__('filament-impersonate::action.label')),
                 EditAction::make(),
             ])
             ->toolbarActions([
