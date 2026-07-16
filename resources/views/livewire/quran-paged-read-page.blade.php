@@ -1,4 +1,38 @@
-<div class="qpr" style="--arabic-font-family: {{ $this->arabicFontFamily }};">
+<div
+  class="qpr"
+  style="--arabic-font-family: {{ $this->arabicFontFamily }};"
+  x-data="{
+    controlsOpen: window.innerWidth > 768,
+    readerFs: false,
+    init() {
+      const sync = () => {
+        if (window.innerWidth > 768) {
+          this.controlsOpen = true;
+        }
+      };
+
+      sync();
+      window.addEventListener('resize', sync);
+      document.addEventListener('fullscreenchange', () => {
+        this.readerFs = document.fullscreenElement === this.$refs.readerShell;
+      });
+    },
+    toggleReaderFullscreen() {
+      const shell = this.$refs.readerShell;
+
+      if (!shell) {
+        return;
+      }
+
+      if (document.fullscreenElement === shell) {
+        document.exitFullscreen?.();
+        return;
+      }
+
+      shell.requestFullscreen?.();
+    }
+  }"
+>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Scheherazade+New:wght@400;700&display=swap');
 
@@ -8,6 +42,22 @@
     .qpr-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
     .qpr-title  { margin: 0; font-family: 'Cairo', sans-serif; font-size: 21px; color: var(--teal-dark); font-weight: 700; }
     .qpr-sub    { margin: 2px 0 0; font-size: 12px; color: var(--text-light); font-family: 'Cairo', sans-serif; }
+    .qpr-mobile-actions { display: none; gap: 8px; }
+    .qpr-mobile-btn {
+      border: 1px solid var(--border-strong);
+      background: #fff;
+      color: var(--teal-dark);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .qpr-controls-stack { display: flex; flex-direction: column; gap: 12px; }
 
     /* ── Toolbar ────────────────────────────────────────────── */
     .qpr-toolbar { background:#fff; border:1px solid var(--border-strong); border-radius:14px; padding:12px; display:grid; grid-template-columns:repeat(3,minmax(150px,1fr)); gap:8px; }
@@ -44,6 +94,42 @@
         -6px 0 14px rgba(66,47,11,.06),
         0 10px 28px rgba(66,47,11,.1);
       position: relative;
+    }
+    .qpr-reader-shell:fullscreen,
+    .qpr-reader-shell:-webkit-full-screen {
+      background: var(--cream);
+      padding: 16px;
+      overflow: auto;
+    }
+    .qpr-reader-shell { position: relative; }
+    .qpr-fs-exit {
+      display: none;
+      position: sticky;
+      top: 8px;
+      margin-left: auto;
+      z-index: 5;
+      border: 1px solid rgba(45,155,132,.2);
+      background: rgba(255,255,255,.96);
+      color: var(--teal-dark);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+    .qpr-reader-shell:fullscreen .qpr-fs-exit,
+    .qpr-reader-shell:-webkit-full-screen .qpr-fs-exit {
+      display: inline-flex;
+    }
+    .qpr-reader-shell:fullscreen .qpr-page,
+    .qpr-reader-shell:-webkit-full-screen .qpr-page {
+      max-width: 980px;
+      margin: 0 auto;
+      min-height: calc(100vh - 32px);
     }
     /* Köşe süslemeleri */
     .qpr-page::before, .qpr-page::after {
@@ -496,6 +582,10 @@
     }
 
     @media (max-width:768px) {
+      .qpr-header { align-items: stretch; }
+      .qpr-mobile-actions { display: flex; flex-wrap: wrap; }
+      .qpr-controls-stack { display: none; }
+      .qpr-controls-stack.is-open { display: flex; }
       .qpr-toolbar  { grid-template-columns:1fr; }
       .qpr-mushaf   { font-size:24px; line-height:2.15; }
       .qpr-page     { padding:20px 18px; }
@@ -511,12 +601,23 @@
       <h1 class="qpr-title">{{ __('Quran Reading') }}</h1>
       <p class="qpr-sub">{{ __('qr_subtitle') }}</p>
     </div>
+    <div class="qpr-mobile-actions">
+      <button type="button" class="qpr-mobile-btn" @click="controlsOpen = !controlsOpen">
+        <i class="ti" :class="controlsOpen ? 'ti-layout-sidebar-right-collapse' : 'ti-layout-sidebar-right-expand'"></i>
+        <span x-text="controlsOpen ? '{{ __('Hide Controls') }}' : '{{ __('Show Controls') }}'"></span>
+      </button>
+      <button type="button" class="qpr-mobile-btn" @click="toggleReaderFullscreen()">
+        <i class="ti" :class="readerFs ? 'ti-minimize' : 'ti-maximize'"></i>
+        <span x-text="readerFs ? '{{ __('Exit Full Screen') }}' : '{{ __('Full Screen') }}'"></span>
+      </button>
+    </div>
   </div>
 
   {{-- ── Toolbar ──────────────────────────────────────────────────────── --}}
   {{-- JSON'u script tag içinde tanımlıyoruz — x-data attribute içinde " tırnak çakışması yaşanmaz --}}
   <script>window.__qprSuraOptions = @json($suraOptions);</script>
 
+  <div class="qpr-controls-stack" :class="{ 'is-open': controlsOpen }">
   <div class="qpr-toolbar">
 
     {{-- Sure: arama özellikli custom dropdown --}}
@@ -643,8 +744,18 @@
       @endforelse
     </div>
   </div>
+  </div>
 
   {{-- ── Mushaf page ──────────────────────────────────────────────────── --}}
+  <div class="qpr-reader-shell" x-ref="readerShell">
+  <button
+    type="button"
+    class="qpr-fs-exit"
+    @click="toggleReaderFullscreen()"
+  >
+    <i class="ti ti-x"></i>
+    {{ __('Exit Full Screen') }}
+  </button>
   <div
     class="qpr-page"
     wire:loading.style="opacity:0.65;transition:opacity .2s"
@@ -742,6 +853,7 @@
         <span wire:loading wire:target="prevPage">…</span>
       </button>
     </div>
+  </div>
   </div>
 
   {{-- ── Notes modal ──────────────────────────────────────────────────── --}}
