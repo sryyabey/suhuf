@@ -1214,7 +1214,7 @@
             <img src="/logo.webp" alt="Suhuf"
                 style="width:38px;height:38px;border-radius:10px;object-fit:cover;display:block;flex-shrink:0;">
             <div>
-                <div class="nav-logo-text">Suhuf Yeni Sunucu</div>
+                <div class="nav-logo-text">Suhuf</div>
                 <div class="nav-logo-sub"
                     style="font-family:'Amiri',Georgia,serif;font-style:normal;letter-spacing:0;font-size:12px;direction:rtl;">
                     أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ</div>
